@@ -646,7 +646,81 @@ const zones = [
        {prio:"B", name:"John Jensen VVS & Blik", contact:"—", phone:"75 62 58 89", email:"helle.vvs@stofanet.dk", rating:"3,6★ (23)", site:"vvs-horsens.dk", rank:"≈11+ · ~0 %"}
      ]
    }},
-  {n:18, name:"Vejle", kommune:"Vejle Kommune", type:2, fee:4995, pop:"55K", searches:"320–480", leads:"8–14", postnr:"7100, 7120, 7130", cities:"Vejle, Bredballe, Give", kw:["VVS Vejle","VVS mester Vejle","akut VVS Vejle","varmepumpe Vejle","VVS 7100"]},
+  {n:18, name:"Vejle", kommune:"Vejle Kommune", type:2, fee:4995, pop:"62K", searches:"320–480", leads:"8–14", postnr:"7100, 7120", cities:"Vejle, Bredballe, Vejle Øst, Uhrhøj, Skibet", kw:["VVS Vejle","VVS mester Vejle","akut VVS Vejle","varmepumpe Vejle","fjernvarme Vejle","blikkenslager Vejle","VVS Bredballe","VVS Jelling","VVS 7100"],
+   intel:{
+     dominator:{name:"Petrowsky A/S — VVS Vejle", phone:"75 72 04 44", note:"Topper Google Maps (4,2★/22) · Sadelmagervej 24. Brandet vvsvejle.dk ejer det organiske #1. Dem du slår i samtalen — ikke dem du ringer til."},
+     portal:"4–6 mestre",
+     source:"Google Maps + Keyword Planner (verificeret, juni 2026)",
+     timing:"⚡ Trekantområdet konverterer fra gas til fjernvarme &amp; varmepumpe — Vejle Fjernvarme/TVIS udvider. Varmepumpesalg nationalt +65 % i 2025. De største jobs i årevis er på vej — brug det som krog.",
+     volume:{
+       cluster:"≈150–400", head:"100–1.000", verified:"Keyword Planner · faktisk (juni 2026)",
+       method:"Hentet direkte i Google Ads Keyword Planner (Danmark). 'VVS Vejle' lander 100–1.000/md — realistisk ~150–400 for en by på 62K. Fjernvarme Vejle ligger også 100–1.000. Tal vises som Googles intervaller.",
+       rows:[
+         {kw:"VVS Vejle", est:"100–1.000", note:"head · Middel konkurrence"},
+         {kw:"fjernvarme Vejle", est:"100–1.000", note:"værket + konvertering"},
+         {kw:"varmepumpe Vejle", est:"10–100", note:"↑ stiger 2025"},
+         {kw:"blikkenslager Vejle", est:"10–100", note:"sekundær"},
+         {kw:"VVS Bredballe / Jelling", est:"10–100", note:"forstad/oplands-geo"},
+         {kw:"akut/mester/pris/7100", est:"<10", note:"for lav til at måle"}
+       ]
+     },
+     adspend:"Hedensted VVS Service A/S (udenbys, Palmelund-gruppen) kører betalt Google Maps-annonce ind i Vejle med varmepumpe-tilbud (Sponsoreret) — bekræftet juni 2026. Også Bygma (grossist). Lokal betalt konkurrence er moderat → billigere at vinde end Horsens.",
+     sharpest:[
+       {name:"VVS Installatør Kaj Hansen ApS", r:"4,2★ (11)", why:"Etableret i Bredballe, solid rating — men lav synlighed. 75 81 57 44."},
+       {name:"Enghave VVS", r:"5,0★ (2)", why:"\"Byens bedste gas- og vandmester\". 40 27 86 33."},
+       {name:"Teko-VVS & Energi ApS", r:"5,0★ (1)", why:"Energi/varmepumpe-profil. 75 85 10 20."}
+     ],
+     ctr:{
+       note:"Organisk CTR pr. Google-placering · GrowthSRC 200K-keyword-studie 2025 + Backlinko. AI Overviews (~30 % af søgninger) kan halvere tallene yderligere.",
+       top3:"68,7 % af alle klik går til top 3",
+       curve:[["#1","27 %"],["#2","15 %"],["#3","11 %"],["#4","8 %"],["#5","6 %"],["#6","4,5 %"],["#7–10","2–3,5 %"],["11+","<1 %"]],
+       dominatorRank:"Petrowsky #1 i Maps-pack · vvsvejle.dk #1 organisk → æder hovedparten af de 100–1.000 søgninger/md"
+     },
+     callscript:{
+       open:"Hej, taler jeg med [fornavn]? Det er [dit navn] fra VVSZone. Fanger jeg dig 30 sekunder — så lover jeg det er kort?",
+       hook:"Jeg har kigget på VVS-markedet i Vejle. Der er 100–1.000 om måneden der googler 'VVS Vejle', plus en bølge i Trekantområdet der skal fra gas til fjernvarme og varmepumpe. Lige nu er det <b>Petrowsky</b> og brandet vvsvejle.dk der fanger klikkene — og et udenbys firma, Hedensted VVS, køber endda annoncer ind i jeres by. Jeres firma dukker reelt ikke op på side 1. Arbejder I aktivt med Google i dag?",
+       ask:[
+         "Hvor kommer jeres kunder typisk fra i dag — anbefalinger, eller også online?",
+         "De store jobs — varmepumpe, badeværelse, fjernvarme — hvis nogen søger det i Vejle i morgen, hvem får dem så?",
+         "I de stille perioder, januar–februar — kunne I bruge et jævnt flow af lokale henvendelser?"
+       ],
+       solution:"Det er præcis det jeg ringer om. VVSZone giver ÉT VVS-firma i Vejle alle de leads Google og vores side genererer — <b>eksklusivt, ingen deling.</b> Når naboen googler VVS, ryger henvendelsen direkte på din telefon inden 2 minutter. Pladsen i Vejle er ledig nu — den går til én. Det kan være jer.",
+       close:"Må jeg vise dig det live på 15 minutter? Passer <i>onsdag kl. 10</i> — eller er <i>torsdag kl. 14</i> nemmere?",
+       objections:[
+         ["\"Vi har nok at lave\"","\"Fedt — det har I i juni. Hvad med januar? Det her sikrer flow året rundt, første måned gratis. Passer onsdag?\""],
+         ["\"Vi bruger ikke Google\"","\"Det behøver I heller ikke — jeres kunder gør. 100–1.000 søger 'VVS Vejle' hver måned. Lige nu får Petrowsky og et udenbys firma dem. Skal vi vende det på 15 min?\""],
+         ["\"Hvad koster det?\"","\"4.995/md, første måned gratis, ingen binding. Mødet koster ingenting. Passer torsdag kl. 14?\""],
+         ["\"Send noget på mail\"","\"Nemmere live — 15 min, så ser du din egen Vejle-side. Onsdag eller torsdag?\""],
+         ["\"Vi har allerede et bureau\"","\"Hvor mange eksklusive Vejle-leads giver de jer om måneden? Det her er kun din by, kun jer. Lad mig vise forskellen.\""]
+       ]
+     },
+     email:{
+       subject:"Vejle — hurtigt spørgsmål om jeres VVS-leads",
+       body:"Hej [fornavn],<br><br>Jeg kiggede på VVS-markedet i Vejle. Lige nu fanger Petrowsky og brandet vvsvejle.dk stort set alle de 100–1.000 der googler 'VVS Vejle' hver måned — og et udenbys firma, Hedensted VVS, køber endda annoncer ind i jeres by.<br><br>Jeres firma dukker reelt ikke op på side 1.<br><br>Jeg ringer i morgen tidlig med en konkret idé — tager 2 minutter.<br><br>[dit navn] · VVSZone · [telefon]"
+     },
+     sms:[
+       {lbl:"Ej svar på opkald", txt:"Hej [fornavn], prøvede at fange dig — [dit navn] fra VVSZone. Kort idé om de VVS-leads i Vejle som Petrowsky og et udenbys firma ellers tager. Ringer igen kl. [tid], eller skriv hvornår der passer 👍"},
+       {lbl:"Bekræft møde", txt:"Tak [fornavn]! Bekræfter vores 15 min [dag] kl. [tid]. Jeg viser dig live hvor mange Vejle-søgninger der lige nu ryger til andre. Vi ses 👍 — [dit navn]"}
+     ],
+     meeting:[
+       {h:"Åbning", t:"\"[Fornavn] — fedt du tog mødet. 20 minutter, så kan du beslutte. Lyder det fair?\""},
+       {h:"Vis problemet live", t:"[Søg 'VVS Vejle' inkognito foran ham] \"Hvem ser du øverst?\" → Petrowsky + vvsvejle.dk. \"De fanger hovedparten af klikkene. Og et udenbys firma betaler for annoncer ind i din by. I står hernede.\""},
+       {h:"Fjernvarme/varmepumpe-vinklen", t:"\"Hele Trekantområdet skifter fra gas til fjernvarme og varmepumpe lige nu. Det er de største jobs i årevis. Hvem fanger dem på Google i dag? Ikke jer.\""},
+       {h:"Vis zonen", t:"[Åbn vvszone.dk/vvs-vejle] \"Det her er din side. Alle der lander her ringer KUN til jer. Ingen andre. Nogensinde.\""},
+       {h:"ROI · hans egne tal", t:"\"Hvad er et gennemsnitsjob for jer?\" [vent] → 8–14 leads × 30 % close = 2–4 jobs/md. Fee 4.995 → breakeven på ÉT job."},
+       {h:"Close", t:"\"2 uger gratis. Ingen binding. 4.995/md bagefter. Vi kan have dig live i morgen. Vil du starte?\"  🔴 TI STILLE."}
+     ],
+     calllist:[
+       {prio:"A", name:"VVS Installatør Kaj Hansen ApS", contact:"—", phone:"75 81 57 44", site:"—", rating:"4,2★ (11)"},
+       {prio:"A", name:"Enghave VVS", contact:"—", phone:"40 27 86 33", site:"—", rating:"5,0★ (2)"},
+       {prio:"A", name:"Teko-VVS & Energi ApS", contact:"—", phone:"75 85 10 20", site:"—", rating:"5,0★ (1)"},
+       {prio:"A", name:"Vejle VVS & Økobyg", contact:"—", phone:"75 85 38 65", site:"—", rating:"5,0★ (1)"},
+       {prio:"A", name:"Hovmand VVS Teknik", contact:"—", phone:"75 83 08 20", site:"hovmandvvs.dk", rating:"3,5★ (27)"},
+       {prio:"A", name:"LP-VVS ApS", contact:"—", phone:"20 70 67 03", site:"lp-vvs.dk", email:"mail@lp-vvs.dk", rating:"—"},
+       {prio:"B", name:"C. V. Christensen A/S", contact:"—", phone:"75 82 00 77", site:"—", rating:"3,8★ (4)"},
+       {prio:"B", name:"Andresen's VVS", contact:"—", phone:"70 20 21 79", site:"andresens-vvs.dk", rating:"—"}
+     ]
+   }},
   {n:19, name:"Kolding", kommune:"Kolding Kommune", type:2, fee:4995, pop:"60K", searches:"350–520", leads:"8–15", postnr:"6000, 6051, 6052", cities:"Kolding, Bramdrupdam, Seest", kw:["VVS Kolding","VVS mester Kolding","akut VVS Kolding","varmepumpe Kolding","VVS 6000"]},
   {n:20, name:"Esbjerg", kommune:"Esbjerg Kommune", type:2, fee:4995, pop:"72K", searches:"420–620", leads:"10–18", postnr:"6700, 6705, 6710, 6715, 6720, 6740", cities:"Esbjerg, Esbjerg N, Ribe", kw:["VVS Esbjerg","VVS mester Esbjerg","akut VVS Esbjerg","varmepumpe Esbjerg"]},
   {n:21, name:"Randers", kommune:"Randers Kommune", type:2, fee:4995, pop:"65K", searches:"380–560", leads:"9–16", postnr:"8900, 8920, 8930, 8940", cities:"Randers C, Randers NV, Randers NØ", kw:["VVS Randers","VVS mester Randers","akut VVS Randers","varmepumpe Randers"]},
