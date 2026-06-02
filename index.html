@@ -720,7 +720,79 @@ const zones = [
        {prio:"B", name:"Andresen's VVS", contact:"Indehaver", phone:"70 20 21 79", site:"andresens-vvs.dk", email:"sa@andresens-vvs.dk", rating:"—"}
      ]
    }},
-  {n:19, name:"Kolding", kommune:"Kolding Kommune", type:2, fee:4995, pop:"60K", searches:"350–520", leads:"8–15", postnr:"6000, 6051, 6052", cities:"Kolding, Bramdrupdam, Seest", kw:["VVS Kolding","VVS mester Kolding","akut VVS Kolding","varmepumpe Kolding","VVS 6000"]},
+  {n:19, name:"Kolding", kommune:"Kolding Kommune", type:2, fee:4995, pop:"62K", searches:"350–520", leads:"8–15", postnr:"6000, 6051, 6052", cities:"Kolding, Bramdrupdam, Seest, Almind, Viuf", kw:["VVS Kolding","VVS mester Kolding","akut VVS Kolding","varmepumpe Kolding","fjernvarme Kolding","blikkenslager Kolding","VVS Seest","VVS Bramdrupdam","VVS 6000"],
+   intel:{
+     dominator:{name:"Lyhne VVS (B. Lyhne VVS ApS)", phone:"75 50 13 00", note:"Topper Google Maps (4,0★/30) · ejer Nikolai Aurelius Lyhne · Sjællandsvej 20 · info@lyhne-vvs.dk. Flest anmeldelser = dominerer det lokale søg. Ham du slår i samtalen."},
+     portal:"4–6 mestre",
+     source:"Google Maps + Keyword Planner (verificeret, juni 2026)",
+     timing:"⚡ DOBBELT åbning i Kolding: (1) Trekantområdet konverterer fra gas til fjernvarme &amp; varmepumpe — TVIS udvider, varmepumpesalg +65 % nationalt 2025. (2) INGEN VVS-firmaer kører betalte Google-annoncer i Kolding (tjekket juni 2026) — first-mover-fordel. Den der kommer først med zone + ads har feltet for sig selv.",
+     volume:{
+       cluster:"≈150–400", head:"100–1.000", verified:"Keyword Planner · faktisk (juni 2026)",
+       method:"Hentet direkte i Google Ads Keyword Planner (Danmark). 'VVS Kolding' lander 100–1.000/md — realistisk ~150–400 for en by på 62K. Fjernvarme Kolding ligger også 100–1.000. Tal vises som Googles intervaller.",
+       rows:[
+         {kw:"VVS Kolding", est:"100–1.000", note:"head · Middel konkurrence"},
+         {kw:"fjernvarme Kolding", est:"100–1.000", note:"værket + konvertering"},
+         {kw:"varmepumpe Kolding", est:"10–100", note:"↑ stiger 2025"},
+         {kw:"blikkenslager Kolding", est:"10–100", note:"sekundær"},
+         {kw:"VVS 6000 / Seest / Bramdrupdam", est:"10–100", note:"geo/forstad"},
+         {kw:"akut/mester/pris Kolding", est:"<10", note:"for lav til at måle"}
+       ]
+     },
+     adspend:"INGEN betalte Google Maps/Search-annoncer fundet for 'VVS Kolding' (tjekket juni 2026) — modsat Horsens (Møllgaard) og Vejle (Hedensted VVS). Betalt felt er TOMT. Konkurrencen er rent organisk: Lyhne VVS topper Maps. → Billigst og hurtigst at vinde af de tre zoner. First-mover-argument i salget.",
+     sharpest:[
+       {name:"Jens Kristiansen VVS A/S", r:"4,8★ (23)", why:"Byens bedst bedømte operatør — bedre end Lyhne (4,0★) — men færre ser dem. jk@jk-vvs.dk · 75 52 11 87."},
+       {name:"Kolding VVS ApS", r:"4,3★ (16)", why:"Ejer Kim Siig (overtog 2017), solid lokal profil. 40 35 72 66."},
+       {name:"Bent & Gregers Larsen", r:"4,2★ (15)", why:"Åben 24 timer = akut-profil, i Bjert syd for Kolding. 75 57 21 30."}
+     ],
+     ctr:{
+       note:"Organisk CTR pr. Google-placering · GrowthSRC 200K-keyword-studie 2025 + Backlinko. AI Overviews (~30 % af søgninger) kan halvere tallene yderligere.",
+       top3:"68,7 % af alle klik går til top 3",
+       curve:[["#1","27 %"],["#2","15 %"],["#3","11 %"],["#4","8 %"],["#5","6 %"],["#6","4,5 %"],["#7–10","2–3,5 %"],["11+","<1 %"]],
+       dominatorRank:"Lyhne VVS #1 i Maps-pack (flest anmeldelser) → æder hovedparten af de 100–1.000 søgninger/md. Betalt felt er tomt = ekstra åbning."
+     },
+     callscript:{
+       open:"Hej, taler jeg med [fornavn]? Det er [dit navn] fra VVSZone. Fanger jeg dig 30 sekunder — så lover jeg det er kort?",
+       hook:"Jeg har kigget på VVS-markedet i Kolding. Der er 100–1.000 om måneden der googler 'VVS Kolding', plus en bølge i Trekantområdet der skal fra gas til fjernvarme og varmepumpe. Lige nu topper <b>Lyhne VVS</b> Google — men det vilde er: <b>ingen i Kolding kører betalte annoncer endnu.</b> Den der kommer først har feltet for sig selv. Jeres firma dukker reelt ikke op på side 1. Arbejder I aktivt med Google i dag?",
+       ask:[
+         "Hvor kommer jeres kunder typisk fra i dag — anbefalinger, eller også online?",
+         "De store jobs — varmepumpe, badeværelse, fjernvarme — hvis nogen søger det i Kolding i morgen, hvem får dem så?",
+         "I de stille perioder, januar–februar — kunne I bruge et jævnt flow af lokale henvendelser?"
+       ],
+       solution:"Det er præcis det jeg ringer om. VVSZone giver ÉT VVS-firma i Kolding alle de leads Google og vores side genererer — <b>eksklusivt, ingen deling.</b> Når naboen googler VVS, ryger henvendelsen direkte på din telefon inden 2 minutter. Pladsen i Kolding er ledig nu — den går til én. Det kan være jer.",
+       close:"Må jeg vise dig det live på 15 minutter? Passer <i>onsdag kl. 10</i> — eller er <i>torsdag kl. 14</i> nemmere?",
+       objections:[
+         ["\"Vi har nok at lave\"","\"Fedt — det har I i juni. Hvad med januar? Det her sikrer flow året rundt, første måned gratis. Passer onsdag?\""],
+         ["\"Vi bruger ikke Google\"","\"Det behøver I heller ikke — jeres kunder gør. 100–1.000 søger 'VVS Kolding' hver måned, og ingen betaler for at fange dem endnu. Skal vi vende det på 15 min?\""],
+         ["\"Hvad koster det?\"","\"4.995/md, første måned gratis, ingen binding. Mødet koster ingenting. Passer torsdag kl. 14?\""],
+         ["\"Send noget på mail\"","\"Nemmere live — 15 min, så ser du din egen Kolding-side. Onsdag eller torsdag?\""],
+         ["\"Vi har allerede et bureau\"","\"Hvor mange eksklusive Kolding-leads giver de jer om måneden? Det her er kun din by, kun jer. Lad mig vise forskellen.\""]
+       ]
+     },
+     email:{
+       subject:"Kolding — hurtigt spørgsmål om jeres VVS-leads",
+       body:"Hej [fornavn],<br><br>Jeg kiggede på VVS-markedet i Kolding. Lige nu topper Lyhne VVS Google — men ingen i byen betaler for annoncer endnu, så der er 100–1.000 månedlige 'VVS Kolding'-søgninger der er i spil.<br><br>Jeres firma dukker reelt ikke op på side 1.<br><br>Jeg ringer i morgen tidlig med en konkret idé — tager 2 minutter.<br><br>[dit navn] · VVSZone · [telefon]"
+     },
+     sms:[
+       {lbl:"Ej svar på opkald", txt:"Hej [fornavn], prøvede at fange dig — [dit navn] fra VVSZone. Kort idé om de VVS-leads i Kolding som ingen fanger endnu (Lyhne topper organisk, men betalt felt er tomt). Ringer igen kl. [tid] 👍"},
+       {lbl:"Bekræft møde", txt:"Tak [fornavn]! Bekræfter vores 15 min [dag] kl. [tid]. Jeg viser dig live hvor mange Kolding-søgninger der lige nu ryger til andre. Vi ses 👍 — [dit navn]"}
+     ],
+     meeting:[
+       {h:"Åbning", t:"\"[Fornavn] — fedt du tog mødet. 20 minutter, så kan du beslutte. Lyder det fair?\""},
+       {h:"Vis problemet live", t:"[Søg 'VVS Kolding' inkognito foran ham] \"Hvem ser du øverst?\" → Lyhne VVS. \"De fanger hovedparten af klikkene. Og se — ingen betaler for annoncer her endnu. Den plads er ledig.\""},
+       {h:"Fjernvarme/varmepumpe-vinklen", t:"\"Hele Trekantområdet skifter fra gas til fjernvarme og varmepumpe lige nu. Det er de største jobs i årevis. Hvem fanger dem på Google i dag? Ikke jer.\""},
+       {h:"Vis zonen", t:"[Åbn vvszone.dk/vvs-kolding] \"Det her er din side. Alle der lander her ringer KUN til jer. Ingen andre. Nogensinde.\""},
+       {h:"ROI · hans egne tal", t:"\"Hvad er et gennemsnitsjob for jer?\" [vent] → 8–15 leads × 30 % close = 2–5 jobs/md. Fee 4.995 → breakeven på ÉT job."},
+       {h:"Close", t:"\"2 uger gratis. Ingen binding. 4.995/md bagefter. Vi kan have dig live i morgen. Vil du starte?\"  🔴 TI STILLE."}
+     ],
+     calllist:[
+       {prio:"A", name:"Jens Kristiansen VVS A/S", contact:"Indehaver", phone:"75 52 11 87", site:"jk-vvs.dk", email:"jk@jk-vvs.dk", rating:"4,8★ (23)"},
+       {prio:"A", name:"Jysk VVS & Byg ApS", contact:"Nikolaj Juhl-Jensen", phone:"81 40 70 10", site:"jyskvvsbyg.dk", email:"jyskvvsogbyg@outlook.dk", rating:"4,4★ (13)"},
+       {prio:"A", name:"Kolding VVS ApS", contact:"Kim Siig", phone:"40 35 72 66", site:"koldingvvs.dk", email:"info@koldingvvs.dk", rating:"4,3★ (16)"},
+       {prio:"A", name:"Bent & Gregers Larsen", contact:"Bent & Gregers Larsen", phone:"75 57 21 30", site:"vvs6000.dk", email:"g.larsen@newmail.dk", rating:"4,2★ (15)"},
+       {prio:"A", name:"BRDR. Clement", contact:"Indehaver", phone:"75 52 25 24", site:"clementvvs.dk", email:"info@clementvvs.dk", rating:"5,0★ (1)"},
+       {prio:"B", name:"Krenk VVS A/S", contact:"Indehaver", phone:"75 50 33 44", site:"krenkvvs.dk", rating:"3,7★ (3)"}
+     ]
+   }},
   {n:20, name:"Esbjerg", kommune:"Esbjerg Kommune", type:2, fee:4995, pop:"72K", searches:"420–620", leads:"10–18", postnr:"6700, 6705, 6710, 6715, 6720, 6740", cities:"Esbjerg, Esbjerg N, Ribe", kw:["VVS Esbjerg","VVS mester Esbjerg","akut VVS Esbjerg","varmepumpe Esbjerg"]},
   {n:21, name:"Randers", kommune:"Randers Kommune", type:2, fee:4995, pop:"65K", searches:"380–560", leads:"9–16", postnr:"8900, 8920, 8930, 8940", cities:"Randers C, Randers NV, Randers NØ", kw:["VVS Randers","VVS mester Randers","akut VVS Randers","varmepumpe Randers"]},
   {n:22, name:"Silkeborg", kommune:"Silkeborg Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"8600, 8620, 8641, 8643", cities:"Silkeborg, Kjellerup, Gjern", kw:["VVS Silkeborg","VVS mester Silkeborg","akut VVS Silkeborg","varmepumpe Silkeborg"]},
