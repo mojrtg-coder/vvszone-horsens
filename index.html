@@ -792,7 +792,81 @@ const zones = [
        {prio:"B", name:"Krenk VVS A/S", contact:"Bjarne Birk Nielsen", phone:"75 50 33 44", site:"krenkvvs.dk", email:"krenk@krenkvvs.dk", rating:"3,7★ (3)"}
      ]
    }},
-  {n:20, name:"Esbjerg", kommune:"Esbjerg Kommune", type:2, fee:4995, pop:"72K", searches:"420–620", leads:"10–18", postnr:"6700, 6705, 6710, 6715, 6720, 6740", cities:"Esbjerg, Esbjerg N, Ribe", kw:["VVS Esbjerg","VVS mester Esbjerg","akut VVS Esbjerg","varmepumpe Esbjerg"]},
+  {n:20, name:"Esbjerg", kommune:"Esbjerg Kommune", type:2, fee:4995, pop:"72K", searches:"420–620", leads:"10–18", postnr:"6700, 6705, 6710, 6715, 6740, 6760", cities:"Esbjerg, Esbjerg N, Esbjerg V, Bramming, Ribe", kw:["VVS Esbjerg","VVS mester Esbjerg","akut VVS Esbjerg","varmepumpe Esbjerg","fjernvarme Esbjerg","blikkenslager Esbjerg","VVS Ribe","VVS Bramming","VVS 6700"],
+   intel:{
+     dominator:{name:"Tommy Jørgensen ApS — VVS & Blikkenslager", phone:"75 13 44 34", note:"Markedsleder i Esbjerg (bekræftet live juni 2026): 4,8★/54 + #1 i Maps-pack + #2 organisk (vvs-tj.dk). Brandet vvs-esbjerg.dk er #1 organisk. Dem du slår i samtalen — ikke et opkaldsemne."},
+     portal:"4–6 mestre",
+     source:"Google Maps + live SERP + Keyword Planner (verificeret, juni 2026)",
+     timing:"⚡ Vestjylland skifter fra gas/olie til varmepumpe &amp; fjernvarme. Varmepumpesalg +65 % nationalt 2025. Bemærk: nogen byder allerede HØJT på \"varmepumpe Esbjerg\" i Google Ads — men de generelle \"VVS Esbjerg\"-søgninger har næsten ingen betalt konkurrence. Kom foran dér.",
+     volume:{
+       cluster:"≈200–450", head:"100–1.000", verified:"Keyword Planner · faktisk (juni 2026)",
+       method:"Hentet direkte i Google Ads Keyword Planner (Danmark). \"VVS Esbjerg\" lander 100–1.000/md — realistisk ~200–450 (Danmarks 5.-største by, 72K). Tal vises som Googles intervaller.",
+       rows:[
+         {kw:"VVS Esbjerg", est:"100–1.000", note:"head · Middel · bud 5,30–11,53 kr"},
+         {kw:"fjernvarme Esbjerg", est:"100–1.000", note:"Lav konkurrence"},
+         {kw:"varmepumpe Esbjerg", est:"10–100", note:"★ HØJ konk. · bud op til 35 kr"},
+         {kw:"blikkenslager Esbjerg", est:"10–100", note:"Lav · bud 4,41–5,58 kr"},
+         {kw:"VVS Bramming", est:"10–100", note:"opland · Lav"},
+         {kw:"VVS Ribe / akut / mester", est:"<10", note:"for lav til at måle"}
+       ]
+     },
+     adspend:"Stort set tomt betalt felt på \"VVS Esbjerg\" (bekræftet live juni 2026) — kun en svag annonce-widget, ingen dominerende annoncør. Konkurrence Middel · top-bud 5,30–11,53 kr/klik (lavere end Horsens). MEN \"varmepumpe Esbjerg\" har HØJ annonce-konkurrence (bud op til 35 kr) — nogen jagter varmepumpe-jobs betalt. Generel VVS = åbent felt.",
+     sharpest:[
+       {name:"Quitzau A/S", r:"4,6★ (13)", why:"Ejer Per Quitzau, solid rating — men usynlig på generel VVS-søgning. post@quitzau.dk · 75 12 66 00."},
+       {name:"Forum Smede og VVS ApS", r:"4,6★ (12)", why:"Smede + VVS, høj rating, lav synlighed. info@forumsmedeogvvs.dk · 75 16 80 38."},
+       {name:"Finn Hansen A/S", r:"4,3★ (16)", why:"45+ års erfaring, grøn energi — men fanges ikke på Google. mai@finnhansen.dk · 75 16 77 11."}
+     ],
+     ctr:{
+       note:"Organisk CTR pr. Google-placering · GrowthSRC 200K-keyword-studie 2025 + Backlinko. AI Overviews (~30 % af søgninger) kan halvere tallene yderligere.",
+       top3:"68,7 % af alle klik går til top 3",
+       curve:[["#1","27 %"],["#2","15 %"],["#3","11 %"],["#4","8 %"],["#5","6 %"],["#6","4,5 %"],["#7–10","2–3,5 %"],["11+","<1 %"]],
+       dominatorRank:"Tommy Jørgensen #1 Maps + #2 organisk (4,8★/54) · vvs-esbjerg.dk #1 organisk-brand → æder hovedparten af de 100–1.000 søgninger/md."
+     },
+     callscript:{
+       open:"Hej, taler jeg med [fornavn]? Det er [dit navn] fra VVSZone. Fanger jeg dig 30 sekunder — så lover jeg det er kort?",
+       hook:"Jeg har kigget på VVS-markedet i Esbjerg. Der er 100–1.000 om måneden der googler \"VVS Esbjerg\", plus folk der skal skifte til varmepumpe og fjernvarme. Lige nu topper <b>Tommy Jørgensen</b> Google (4,8★). På de generelle VVS-søgninger er der stort set ingen der betaler for annoncer — men på varmepumpe byder nogen allerede hårdt. Jeres firma dukker reelt ikke op på side 1. Arbejder I aktivt med Google i dag?",
+       ask:[
+         "Hvor kommer jeres kunder typisk fra i dag — anbefalinger, eller også online?",
+         "De store jobs — varmepumpe, badeværelse, fjernvarme — hvis nogen søger det i Esbjerg i morgen, hvem får dem så?",
+         "I de stille perioder, januar–februar — kunne I bruge et jævnt flow af lokale henvendelser?"
+       ],
+       solution:"Det er præcis det jeg ringer om. VVSZone giver ÉT VVS-firma i Esbjerg alle de leads Google og vores side genererer — <b>eksklusivt, ingen deling.</b> Når naboen googler VVS, ryger henvendelsen direkte på din telefon inden 2 minutter. Pladsen i Esbjerg er ledig nu — den går til én. Det kan være jer.",
+       close:"Må jeg vise dig det live på 15 minutter? Passer <i>onsdag kl. 10</i> — eller er <i>torsdag kl. 14</i> nemmere?",
+       objections:[
+         ["\"Vi har nok at lave\"","\"Fedt — det har I i juni. Hvad med januar? Det her sikrer flow året rundt, første måned gratis. Passer onsdag?\""],
+         ["\"Vi bruger ikke Google\"","\"Det behøver I heller ikke — jeres kunder gør. 100–1.000 søger 'VVS Esbjerg' hver måned, og næsten ingen betaler for at fange dem. Skal vi vende det på 15 min?\""],
+         ["\"Hvad koster det?\"","\"4.995/md, første måned gratis, ingen binding. Mødet koster ingenting. Passer torsdag kl. 14?\""],
+         ["\"Send noget på mail\"","\"Nemmere live — 15 min, så ser du din egen Esbjerg-side. Onsdag eller torsdag?\""],
+         ["\"Vi har allerede et bureau\"","\"Hvor mange eksklusive Esbjerg-leads giver de jer om måneden? Det her er kun din by, kun jer. Lad mig vise forskellen.\""]
+       ]
+     },
+     email:{
+       subject:"Esbjerg — hurtigt spørgsmål om jeres VVS-leads",
+       body:"Hej [fornavn],<br><br>Jeg kiggede på VVS-markedet i Esbjerg. Lige nu topper Tommy Jørgensen Google — men på de generelle \"VVS Esbjerg\"-søgninger (100–1.000/md) betaler stort set ingen for annoncer endnu, så feltet er åbent.<br><br>Jeres firma dukker reelt ikke op på side 1.<br><br>Jeg ringer i morgen tidlig med en konkret idé — tager 2 minutter.<br><br>[dit navn] · VVSZone · [telefon]"
+     },
+     sms:[
+       {lbl:"Ej svar på opkald", txt:"Hej [fornavn], prøvede at fange dig — [dit navn] fra VVSZone. Kort idé om de VVS-leads i Esbjerg som de færreste fanger betalt endnu (Tommy Jørgensen topper organisk). Ringer igen kl. [tid] 👍"},
+       {lbl:"Bekræft møde", txt:"Tak [fornavn]! Bekræfter vores 15 min [dag] kl. [tid]. Jeg viser dig live hvor mange Esbjerg-søgninger der lige nu ryger til andre. Vi ses 👍 — [dit navn]"}
+     ],
+     meeting:[
+       {h:"Åbning", t:"\"[Fornavn] — fedt du tog mødet. 20 minutter, så kan du beslutte. Lyder det fair?\""},
+       {h:"Vis problemet live", t:"[Søg \"VVS Esbjerg\" inkognito foran ham] \"Hvem ser du øverst?\" → Tommy Jørgensen. \"De fanger hovedparten af klikkene. Og se — på generel VVS betaler stort set ingen for annoncer her. Den plads er ledig.\""},
+       {h:"Varmepumpe/fjernvarme-vinklen", t:"\"Vestjylland skifter til varmepumpe og fjernvarme lige nu — de største jobs i årevis. Nogen byder allerede hårdt på varmepumpe i Google. Hvem fanger dem? Ikke jer endnu.\""},
+       {h:"Vis zonen", t:"[Åbn vvszone.dk/vvs-esbjerg] \"Det her er din side. Alle der lander her ringer KUN til jer. Ingen andre. Nogensinde.\""},
+       {h:"ROI · hans egne tal", t:"\"Hvad er et gennemsnitsjob for jer?\" [vent] → 10–18 leads × 30 % close = 3–5 jobs/md. Fee 4.995 → breakeven på ÉT job."},
+       {h:"Close", t:"\"2 uger gratis. Ingen binding. 4.995/md bagefter. Vi kan have dig live i morgen. Vil du starte?\"  🔴 TI STILLE."}
+     ],
+     calllist:[
+       {prio:"A", name:"Quitzau A/S", contact:"Per Quitzau", phone:"75 12 66 00", site:"quitzau.dk", email:"post@quitzau.dk", rating:"4,6★ (13)"},
+       {prio:"A", name:"Forum Smede og VVS ApS", contact:"—", phone:"75 16 80 38", site:"forumsmedeogvvs.dk", email:"info@forumsmedeogvvs.dk", rating:"4,6★ (12)"},
+       {prio:"A", name:"Finn Hansen A/S", contact:"—", phone:"75 16 77 11", site:"finnhansen.dk", email:"mai@finnhansen.dk", rating:"4,3★ (16)"},
+       {prio:"A", name:"Carl Buch I/S (blik)", contact:"—", phone:"75 12 07 55", site:"—", rating:"4,2★ (13)"},
+       {prio:"A", name:"E Skov Jørgensen A/S — Døgnvagt", contact:"—", phone:"75 14 51 88", site:"eskov.dk", rating:"4,3★ (13)"},
+       {prio:"B", name:"StarVVS A/S", contact:"—", phone:"75 45 33 22", site:"starvvs.dk", rating:"4,0★ (11)"},
+       {prio:"B", name:"Carl W. Reis A/S", contact:"—", phone:"75 15 68 00", site:"cwr.dk", rating:"3,9★ (7)"},
+       {prio:"B", name:"Deres Blikkenslager A/S", contact:"—", phone:"75 12 50 11", site:"deresblik.dk", rating:"3,5★ (6)"}
+     ]
+   }},
   {n:21, name:"Randers", kommune:"Randers Kommune", type:2, fee:4995, pop:"65K", searches:"380–560", leads:"9–16", postnr:"8900, 8920, 8930, 8940", cities:"Randers C, Randers NV, Randers NØ", kw:["VVS Randers","VVS mester Randers","akut VVS Randers","varmepumpe Randers"]},
   {n:22, name:"Silkeborg", kommune:"Silkeborg Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"8600, 8620, 8641, 8643", cities:"Silkeborg, Kjellerup, Gjern", kw:["VVS Silkeborg","VVS mester Silkeborg","akut VVS Silkeborg","varmepumpe Silkeborg"]},
   {n:23, name:"Herning", kommune:"Herning Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"7400, 7430, 7441, 7442", cities:"Herning, Ikast, Hammerum", kw:["VVS Herning","VVS mester Herning","akut VVS Herning","varmepumpe Herning"]},
