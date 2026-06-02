@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VVSZone — Zone Forberedelse</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#fff;color:#111;font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6;}
+.nav{position:sticky;top:0;background:#fff;border-bottom:2px solid #111;height:44px;display:flex;align-items:center;padding:0 20px;z-index:200;gap:8px;}
+.nav-brand{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#1B6FFF;flex-shrink:0;}
+.nav-select{font-family:'Space Mono',monospace;font-size:10px;border:1.5px solid #111;padding:4px 8px;background:#fff;cursor:pointer;flex:1;max-width:280px;}
+.print-btn{margin-left:auto;background:#111;color:#fff;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;border:none;padding:6px 12px;cursor:pointer;flex-shrink:0;}
+
+@media print{@page{size:A4;margin:12mm 14mm;}.nav{display:none;}.wrap{padding:0;}.pb{page-break-after:always;}.nob{page-break-inside:avoid;}}
+
+/* ZONE INDEX */
+.zone-index{padding:28px;background:#f5f5f5;border-bottom:2px solid #111;}
+.zi-title{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:.9;margin-bottom:16px;}
+.zi-title .bl{color:#1B6FFF;}.zi-title .go{color:#8B6914;}
+.zi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:3px;}
+.zi-item{background:#fff;border-left:4px solid #e0e0e0;padding:8px 10px;cursor:pointer;transition:all .15s;}
+.zi-item:hover{background:#eef3ff;border-left-color:#1B6FFF;}
+.zi-item.t1{border-left-color:#1B6FFF;}
+.zi-item.t2{border-left-color:#8B6914;}
+.zi-item.t3{border-left-color:#999;}
+.zi-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;}
+.zi-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:#111;line-height:1;display:block;margin-bottom:2px;}
+.zi-fee{font-family:'Space Mono',monospace;font-size:9px;color:#888;}
+
+/* ZONE DETAIL */
+.wrap{max-width:740px;margin:0 auto;padding:32px 28px;display:none;}
+.wrap.active{display:block;}
+
+.zone-header{background:#111;color:#fff;padding:20px 24px;margin-bottom:4px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;}
+.zh-left{}
+.zh-zone{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:4px;}
+.zh-name{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:.9;color:#fff;margin-bottom:6px;}
+.zh-meta{font-size:13px;color:#888;line-height:1.6;}
+.zh-right{text-align:right;}
+.zh-fee{font-family:'Bebas Neue',sans-serif;font-size:44px;color:#1B6FFF;line-height:1;display:block;}
+.zh-fee-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#666;}
+
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:20px;}
+.stat{background:#f5f5f5;padding:14px 12px;text-align:center;border-top:3px solid #e0e0e0;}
+.stat.blue{border-top-color:#1B6FFF;}
+.stat.gold{border-top-color:#8B6914;}
+.stat.green{border-top-color:#2E7D32;}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;display:block;}
+.stat.blue .stat-val{color:#1B6FFF;}
+.stat.gold .stat-val{color:#8B6914;}
+.stat.green .stat-val{color:#2E7D32;}
+.stat-label{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;}
+
+/* PHASE */
+.phase{margin-bottom:4px;}
+.phase-bar{display:flex;align-items:center;gap:14px;background:#111;padding:14px 20px;margin-bottom:3px;}
+.phase-n{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#1B6FFF;line-height:1;flex-shrink:0;}
+.phase-info{flex:1;}
+.phase-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:#fff;line-height:1;margin-bottom:2px;}
+.phase-sub{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#666;}
+.phase-time{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#8B6914;flex-shrink:0;}
+
+/* STEP */
+.step{display:flex;gap:0;margin-bottom:3px;border:1.5px solid #e0e0e0;}
+.step-n{width:44px;flex-shrink:0;background:#f5f5f5;display:flex;align-items:flex-start;justify-content:center;padding-top:16px;border-right:1px solid #e0e0e0;}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1B6FFF;line-height:1;}
+.step-body{flex:1;padding:14px 16px;}
+.step-title{font-size:15px;font-weight:600;color:#111;margin-bottom:5px;}
+.step-desc{font-size:13px;color:#555;line-height:1.7;margin-bottom:6px;}
+.tool{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;border:1px solid;margin:0 3px 4px 0;}
+.tc{color:#1B6FFF;border-color:#1B6FFF;background:#eef3ff;}
+.tg{color:#2E7D32;border-color:#2E7D32;background:#f0faf0;}
+.tr{color:#C93B2A;border-color:#C93B2A;background:#fff0ee;}
+.th{color:#8B6914;border-color:#8B6914;background:#fffdf5;}
+.tm{color:#7B3F9E;border-color:#7B3F9E;background:#f8f0ff;}
+.tk{color:#555;border-color:#ccc;background:#f5f5f5;}
+
+/* CLAUDE BOX */
+.claude{background:#07090F;padding:14px 16px;margin:8px 0;}
+.claude-top{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#4a9eff;margin-bottom:8px;}
+.claude-text{font-size:13px;color:#a8c4ff;line-height:1.9;}
+.claude-text strong{color:#fff;}
+.claude-text em{color:#4a9eff;font-style:normal;}
+
+/* SCRIPT */
+.script{border-left:5px solid #1B6FFF;padding:14px 18px;background:#f0f4ff;margin:6px 0;}
+.script.warm{border-left-color:#8B6914;background:#fffdf5;}
+.script.green{border-left-color:#2E7D32;background:#f0faf0;}
+.script-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#1B6FFF;margin-bottom:7px;}
+.script.warm .script-lbl{color:#8B6914;}.script.green .script-lbl{color:#2E7D32;}
+.words{font-size:17px;font-weight:300;color:#111;line-height:2.1;}
+.words strong{font-weight:700;}
+.words em{font-style:normal;color:#1B6FFF;font-weight:500;}
+.script.warm .words em{color:#7A5C00;}
+.pause{display:inline-block;background:#fff0ee;border:1.5px solid #C93B2A;color:#C93B2A;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:2px 7px;margin:0 3px;vertical-align:middle;}
+.silent{background:#fff0ee;border:2px solid #C93B2A;padding:12px 16px;margin:8px 0;}
+.silent strong{color:#C93B2A;font-size:16px;display:block;margin-bottom:2px;}
+.silent p{font-size:13px;color:#555;}
+
+/* CHECKLIST */
+.cl{margin-top:10px;}
+.cl-lbl{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#1B6FFF;margin-bottom:6px;}
+.ci{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:#f5f5f5;cursor:pointer;margin-bottom:2px;}
+.ci.done{opacity:.4;}
+.ci.done .cib{background:#1B6FFF;border-color:#1B6FFF;}
+.ci.done .cib::after{content:'✓';color:#fff;font-size:10px;}
+.cib{width:17px;height:17px;border:1.5px solid #bbb;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.ci-t{font-size:13px;color:#111;}
+
+/* OBJ */
+.obj{border-left:4px solid #C93B2A;background:#fafafa;padding:10px 14px;margin-bottom:3px;}
+.obj-q{font-size:13px;font-weight:700;color:#C93B2A;margin-bottom:4px;}
+.obj-a{font-size:14px;font-weight:300;color:#222;line-height:1.8;}
+.obj-a em{font-style:normal;color:#1B6FFF;}
+
+/* ROI */
+.roi{background:#111;padding:18px 20px;margin:8px 0;}
+.roi h4{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;margin-bottom:10px;}
+.roi-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222;font-size:13px;}
+.roi-row:last-child{border-bottom:none;font-weight:700;}
+.roi-k{color:#888;}
+.roi-v{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1B6FFF;}
+.roi-row:last-child .roi-v{color:#4CAF50;}
+
+/* ONBOARDING TL */
+.obn{display:flex;flex-direction:column;gap:3px;}
+.obn-row{display:flex;gap:0;}
+.obn-t{font-family:'Space Mono',monospace;font-size:9px;color:#888;width:80px;flex-shrink:0;padding:11px 0;line-height:1.4;}
+.obn-b{flex:1;padding:11px 14px;border-left:4px solid #e0e0e0;margin-bottom:2px;}
+.obn-b.blue{border-left-color:#1B6FFF;background:#f0f4ff;}
+.obn-b.green{border-left-color:#2E7D32;background:#f0faf0;}
+.obn-b.gold{border-left-color:#8B6914;background:#fffdf5;}
+.obn-head{font-weight:600;font-size:13px;margin-bottom:2px;}
+.obn-b.blue .obn-head{color:#1B6FFF;}
+.obn-b.green .obn-head{color:#2E7D32;}
+.obn-b.gold .obn-head{color:#8B6914;}
+.obn-desc{font-size:12px;color:#555;line-height:1.6;}
+
+.div{height:1px;background:#e0e0e0;margin:20px 0;}
+.back-btn{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:7px 12px;border:1.5px solid #111;cursor:pointer;margin-bottom:20px;background:#fff;}
+.back-btn:hover{background:#111;color:#fff;}
+@media(max-width:600px){.wrap{padding:16px;}.stats-row{grid-template-columns:1fr 1fr;}.words{font-size:15px;}.zh-name{font-size:36px;}.zh-fee{font-size:32px;}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand">VVSZONE</div>
+  <select class="nav-select" onchange="selectZone(this.value)" id="zoneSelect">
+    <option value="">Vælg zone...</option>
+  </select>
+  <button class="print-btn" onclick="window.print()">⎙ Print zone</button>
+</nav>
+
+<!-- ZONE INDEX -->
+<div class="zone-index" id="zoneIndex">
+  <div class="zi-title"><span class="bl">79</span> <span class="go">ZONER</span></div>
+  <div class="zi-grid" id="ziGrid"></div>
+</div>
+
+<!-- ZONE DETAIL -->
+<div class="wrap" id="zoneDetail">
+  <div class="back-btn" onclick="showIndex()">← Alle zoner</div>
+
+  <div class="zone-header nob">
+    <div class="zh-left">
+      <div class="zh-zone" id="d-zone-label"></div>
+      <div class="zh-name" id="d-name"></div>
+      <div class="zh-meta" id="d-meta"></div>
+    </div>
+    <div class="zh-right">
+      <span class="zh-fee" id="d-fee"></span>
+      <div class="zh-fee-label">kr / måned</div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat blue"><span class="stat-val" id="d-pop"></span><div class="stat-label">Befolkning</div></div>
+    <div class="stat blue"><span class="stat-val" id="d-searches"></span><div class="stat-label">Søgn/md (est.)</div></div>
+    <div class="stat green"><span class="stat-val" id="d-leads"></span><div class="stat-label">Leads/md (est.)</div></div>
+    <div class="stat gold"><span class="stat-val" id="d-type"></span><div class="stat-label">Zone type</div></div>
+  </div>
+
+  <!-- MARKEDSANALYSE -->
+  <div class="phase nob" id="markedsanalyse">
+    <div class="phase-bar" style="background:#1B6FFF;">
+      <div class="phase-n" style="color:#fff;font-size:36px;width:auto;padding-right:8px;">MARKED</div>
+      <div class="phase-info">
+        <div class="phase-title">Markedsanalyse</div>
+        <div class="phase-sub">Udfyld mens du researcher · Hav dette klar inden du ringer</div>
+      </div>
+      <div class="phase-time" style="color:#fff;opacity:.7;">~20 min</div>
+    </div>
+
+    <!-- AUTO DATA -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:3px;">
+      <div style="background:#eef3ff;border-left:4px solid #1B6FFF;padding:14px 16px;">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#1B6FFF;margin-bottom:6px;">Estimeret søgevolumen</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#1B6FFF;line-height:1;" id="ma-searches"></div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">søgninger / md · Verificér i Keyword Planner</div>
+      </div>
+      <div style="background:#f0faf0;border-left:4px solid #2E7D32;padding:14px 16px;">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#2E7D32;margin-bottom:6px;">Estimerede leads</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#2E7D32;line-height:1;" id="ma-leads"></div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">leads / md · søgn × 5% × 15%</div>
+      </div>
+      <div style="background:#fffdf5;border-left:4px solid #8B6914;padding:14px 16px;">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8B6914;margin-bottom:6px;">Zone fee</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#8B6914;line-height:1;" id="ma-fee"></div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">kr / md · Første måned gratis</div>
+      </div>
+    </div>
+
+    <!-- VERIFICERET MARKEDSDATA (kun zoner med intel) -->
+    <div id="ma-intel" style="display:none;margin-bottom:3px;"></div>
+
+    <!-- RESEARCH FIELDS — udfyld selv -->
+    <div style="background:#f5f5f5;border:1.5px solid #e0e0e0;padding:16px 18px;margin-bottom:3px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#555;margin-bottom:12px;">Udfyld under research — disse tal bruger du i call og møde</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Konkurrent øverst på Google</label>
+          <input type="text" placeholder="Eks: Møllgaard VVS" style="width:100%;border:1.5px solid #ddd;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;" id="ma-konkurrent">
+        </div>
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Konkurrentens est. ads-forbrug</label>
+          <input type="text" placeholder="Eks: ~4.500 kr/md (SpyFu)" style="width:100%;border:1.5px solid #ddd;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;" id="ma-adsspend">
+        </div>
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Antal mestre på 3byggetilbud</label>
+          <input type="text" placeholder="Eks: 4 mestre" style="width:100%;border:1.5px solid #ddd;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;" id="ma-portal">
+        </div>
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Faktisk søgevolumen (Keyword Planner)</label>
+          <input type="text" placeholder="Eks: 380 søgninger/md" style="width:100%;border:1.5px solid #ddd;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;" id="ma-actualvol">
+        </div>
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Ejerens fornavn (firma A)</label>
+          <input type="text" placeholder="Eks: Thomas" style="width:100%;border:1.5px solid #ddd;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;" id="ma-owner1">
+        </div>
+        <div>
+          <label style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;display:block;margin-bottom:4px;">Direkte mobilnummer (firma A)</label>
+          <input type="text" placeholder="Eks: 75 65 56 01" style="width:100%;border:1.5px solid #ddd;padding:7px 10px;font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;" id="ma-phone1">
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI BEREGNING -->
+    <div style="background:#111;padding:16px 18px;margin-bottom:3px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-bottom:10px;">ROI — automatisk beregning</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;">
+        <div style="background:#1a1e2c;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#1B6FFF;line-height:1;" id="ma-roi-leads"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:1px;">Leads/md</div>
+        </div>
+        <div style="background:#1a1e2c;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#8B6914;line-height:1;">70.851</div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:1px;">Gns. job kr</div>
+        </div>
+        <div style="background:#1a1e2c;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#4CAF50;line-height:1;" id="ma-roi-revenue"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:1px;">Pot. omsætning/md</div>
+        </div>
+        <div style="background:#1a1e2c;padding:12px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;" id="ma-roi-breakeven"></div>
+          <div style="font-family:'Space Mono',monospace;font-size:8px;color:#666;margin-top:3px;text-transform:uppercase;letter-spacing:1px;">Mdr breakeven</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALL ÅBNING MED DATA -->
+    <div style="background:#07090F;padding:16px 18px;margin-bottom:3px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#4a9eff;margin-bottom:10px;">Din åbningslinje med zone-data indsat</div>
+      <div style="font-size:17px;font-weight:300;color:#a8c4ff;line-height:2.1;">
+        "Hej [fornavn] — mit navn er [dit navn] fra VVSZone.<br>
+        Har du 30 sekunder?<br><br>
+        Jeg analyserede VVS-markedet i <strong style="color:#fff;" id="ma-city-call"></strong> og lagde mærke til noget.<br>
+        Der er <strong style="color:#4a9eff;" id="ma-vol-call"></strong> om måneden der googler VVS i din by.<br>
+        <strong style="color:#fff;" id="ma-konkurrent-call">[ konkurrentnavn indsættes når du udfylder feltet ovenfor ]</strong> fanger dem alle i dag.<br><br>
+        <strong style="color:#4a9eff;">Arbejder I aktivt med det i dag?"</strong>
+      </div>
+    </div>
+
+    <!-- RESEARCH STEPS -->
+    <div style="background:#f5f5f5;border-left:4px solid #1B6FFF;padding:14px 16px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#1B6FFF;margin-bottom:8px;">Research tjekliste · 20 min</div>
+      <div style="display:flex;flex-direction:column;gap:2px;" id="ma-checklist">
+        <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div><div class="ci-t">Google Maps inkognito → <span id="ma-maps-search"></span></div></div></div>
+        <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div><div class="ci-t">Keyword Planner → <span id="ma-kw-list"></span></div></div></div>
+        <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div><div class="ci-t">3byggetilbud.dk → søg postnr <span id="ma-postnr"></span></div></div></div>
+        <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div><div class="ci-t">SpyFu.com → konkurrentens domæne → noter ads-spend</div></div></div>
+        <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div><div class="ci-t">Find ejernavne + direkte mobilnumre til A-listen</div></div></div>
+        <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div><div class="ci-t">Udfyld felterne ovenfor med dine fund</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- FASE 1 -->
+  <div class="phase nob">
+    <div class="phase-bar">
+      <div class="phase-n">1</div>
+      <div class="phase-info">
+        <div class="phase-title">Forberedelse</div>
+        <div class="phase-sub">Aftenen inden · ~90 min</div>
+      </div>
+      <div class="phase-time">Aften</div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">1</div></div>
+      <div class="step-body">
+        <div class="step-title">Find alle VVS-firmaer</div>
+        <div class="step-desc">Åbn Google Maps inkognito → søg <strong id="s-search1"></strong> → gem firmaer med 4,0–4,6 ★ og 15–120 anmeldelser. Find ejerens fornavn og direkte mobilnummer.</div>
+        <span class="tool tg">Google Maps</span><span class="tool tk">Inkognito</span><span class="tool tr">3byggetilbud.dk</span>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">2</div></div>
+      <div class="step-body">
+        <div class="step-title">Søgevolumen i Keyword Planner</div>
+        <div class="step-desc">Søg disse keywords og notér månedlig volumen:</div>
+        <span class="tool tg">Keyword Planner</span>
+        <div id="d-keywords" style="margin-top:8px;font-family:'Space Mono',monospace;font-size:11px;color:#555;line-height:2;background:#f5f5f5;padding:8px 12px;"></div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">3</div></div>
+      <div class="step-body">
+        <div class="step-title">Byg zone-siden med Claude</div>
+        <span class="tool tc">Claude</span>
+        <div class="claude nob">
+          <div class="claude-top">Claude prompt — kopi direkte ind</div>
+          <div class="claude-text" id="d-claude-side"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">4</div></div>
+      <div class="step-body">
+        <div class="step-title">Pre-call emails med Claude</div>
+        <span class="tool tc">Claude</span>
+        <div class="claude nob">
+          <div class="claude-top">Claude prompt — gentag per firma</div>
+          <div class="claude-text" id="d-claude-email"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">5</div></div>
+      <div class="step-body">
+        <div class="step-title">Opret i HubSpot + prioritér</div>
+        <div class="step-desc">Navn · Tlf · Prioritet A/B · 3byggetilbud? · Google Ads? · Hjemmeside årstal. Stage: Prospekt.</div>
+        <span class="tool th">HubSpot</span>
+      </div>
+    </div>
+
+    <div class="cl nob">
+      <div class="cl-lbl">Tjekliste — klik når gjort</div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">A-liste klar · 3byggetilbud tjekket</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Søgevolumen noteret + konkurrent øverst noteret</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Zone-siden live</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Pre-call emails sendt kl. 19</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Alle firmaer i HubSpot</div></div>
+    </div>
+  </div>
+
+  <div class="div pb"></div>
+
+  <!-- FASE 2 -->
+  <div class="phase nob">
+    <div class="phase-bar">
+      <div class="phase-n">2</div>
+      <div class="phase-info">
+        <div class="phase-title">Call</div>
+        <div class="phase-sub">07:30 → 17:00 · A-liste først</div>
+      </div>
+      <div class="phase-time">Hele dagen</div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn" style="font-size:18px;padding-top:8px;">ÅBN</div></div>
+      <div class="step-body">
+        <div class="script nob">
+          <div class="script-lbl">Åbning — fast</div>
+          <div class="words">"Hej — taler jeg med <em>[fornavn]</em>? Mit navn er [dit navn] fra VVSZone. Har du <strong>30 sekunder?"</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn" style="font-size:14px;padding-top:10px;">SPØRG</div></div>
+      <div class="step-body">
+        <div class="step-title">8 spørgsmål — han erkender selv</div>
+        <div class="script nob">
+          <div class="script-lbl">Stil i rækkefølge · Lyt efter hvert</div>
+          <div class="words">
+            "Hvordan ser arbejdet ud for jer i øjeblikket?"<br>
+            <span class="pause">lyt</span><br>
+            "Fedt. Hvor kommer jeres kunder fra typisk?"<br>
+            <span class="pause">lyt</span><br>
+            "Hvad med de store jobs — varmepumpe, badeværelse. Kommer de også via anbefalinger?"<br>
+            <span class="pause">lyt</span><br>
+            "Hvad tror du folk gør når de overvejer en varmepumpe — spørger de naboen, eller googler de?"<br>
+            <span class="pause">lyt</span><br>
+            "Hvis nogen søgte '<em id="s-q5"></em>' i dag — dukker I op?"<br>
+            <span class="pause">lyt</span><br>
+            "Hvem tror du får de kunder så?"<br>
+            <span class="pause">lyt</span><br>
+            "Og hvad sker der for jer i januar — er det ligeså travlt?"<br>
+            <span class="pause">lyt</span><br>
+            "Så der er perioder hvor det er svært at forudsige om der er nok arbejde?"
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn" style="font-size:16px;padding-top:8px;">LUK</div></div>
+      <div class="step-body">
+        <div class="script green nob">
+          <div class="script-lbl">Invitation — fast</div>
+          <div class="words">"Jeg har en løsning på præcis det. Må jeg vise dig den på <strong>15 minutter?</strong><br>Passer <em>[dag] kl. 10</em> — eller er <em>[dag] kl. 14</em> nemmere?"</div>
+        </div>
+        <div class="silent"><strong>🔴 Ti stille.</strong><p>Den der taler først taber. Vent.</p></div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn" style="font-size:12px;padding-top:10px;">IND-</div></div>
+      <div class="step-body">
+        <div class="step-title">Indvendinger — "Det forstår jeg godt." Altid.</div>
+        <div class="obj nob"><div class="obj-q">"Vi har nok kunder"</div><div class="obj-a">"Fedt. Hvad sker der i <em>januar</em>?"</div></div>
+        <div class="obj nob"><div class="obj-q">"Hvad koster det?"</div><div class="obj-a">"Mødet koster ingenting. Første måned gratis. Passer <em>[dag]</em>?"</div></div>
+        <div class="obj nob"><div class="obj-q">"Send noget info"</div><div class="obj-a">"Nemmere live — 15 min. Passer <em>[dag]</em>?"</div></div>
+        <div class="obj nob"><div class="obj-q">"Vi bruger ikke Google"</div><div class="obj-a">"Dine kunder gør. Hvem får dem der googler '<em id="s-q5b"></em>'?"</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div pb"></div>
+
+  <!-- FASE 3 -->
+  <div class="phase nob">
+    <div class="phase-bar">
+      <div class="phase-n">3</div>
+      <div class="phase-info">
+        <div class="phase-title">Møde</div>
+        <div class="phase-sub">15–20 min · Vis live · Luk</div>
+      </div>
+      <div class="phase-time">15–20 min</div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">A</div></div>
+      <div class="step-body">
+        <div class="script nob"><div class="script-lbl">Åbning</div>
+        <div class="words">"[Fornavn] — fedt du tog mødet. 20 minutter — så kan du beslutte. <strong>Lyder det fair?"</strong></div></div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">B</div></div>
+      <div class="step-body">
+        <div class="step-title">Vis problemet live</div>
+        <span class="tool tk">Teams skærmshare</span><span class="tool tg">Google Inkognito</span>
+        <div class="script warm nob"><div class="script-lbl">Søg live foran ham</div>
+        <div class="words">[Søg "<em id="s-live1"></em>" inkognito]<br><br>"Hvem ser du øverst?" <span class="pause">5 sek</span><br><br>"De fanger <strong><span id="d-searches2"></span> søgninger/md</strong> der ellers ville ringe til jer."</div></div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">C</div></div>
+      <div class="step-body">
+        <div class="step-title">Vis zone-siden</div>
+        <div class="script nob"><div class="script-lbl">Åbn <span id="s-url"></span></div>
+        <div class="words">"Det her er din side. Alle der lander her ringer <strong>kun til jer.</strong> Ingen andre. <strong>Nogensinde.</strong>"</div></div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">D</div></div>
+      <div class="step-body">
+        <div class="step-title">ROI — brug hans egne tal</div>
+        <div class="script warm nob"><div class="script-lbl">Spørg</div>
+        <div class="words">"Hvad er et gennemsnitsjob for jer?" <span class="pause">vent</span></div></div>
+        <div class="roi nob"><h4>Udfyld live</h4>
+          <div class="roi-row"><div class="roi-k">Hans gns. job</div><div class="roi-v">_______ kr</div></div>
+          <div class="roi-row"><div class="roi-k"><span id="d-leads2"></span> leads × 30% close</div><div class="roi-v">___ jobs/md</div></div>
+          <div class="roi-row"><div class="roi-k">Vores fee</div><div class="roi-v"><span id="d-fee2"></span> kr</div></div>
+          <div class="roi-row"><div class="roi-k">Breakeven</div><div class="roi-v">___ mdr</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step nob">
+      <div class="step-n"><div class="sn">E</div></div>
+      <div class="step-body">
+        <div class="script green nob"><div class="script-lbl">Close</div>
+        <div class="words">"2 uger gratis. Ingen binding. <em><span id="d-fee3"></span> kr/md</em> bagefter.<br>Vi kan have dig <strong>live i morgen.</strong><br><br>Vil du starte?"</div></div>
+        <div class="silent"><strong>🔴 Ti stille.</strong><p>Vent på hans svar.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div pb"></div>
+
+  <!-- FASE 4 -->
+  <div class="phase nob">
+    <div class="phase-bar">
+      <div class="phase-n">4</div>
+      <div class="phase-info">
+        <div class="phase-title">Onboarding</div>
+        <div class="phase-sub">Fra ja til live — under 48 timer</div>
+      </div>
+      <div class="phase-time">48 timer</div>
+    </div>
+
+    <div class="obn nob">
+      <div class="obn-row"><div class="obn-t">T+0<br>Straks</div><div class="obn-b blue"><div class="obn-head">SMS øjeblikkeligt</div><div class="obn-desc">"Fedt [fornavn]! Send mig: mobilnummer til leads, dine ydelser, dine postnumre. Du er live i morgen."</div></div></div>
+      <div class="obn-row"><div class="obn-t">T+0<br>Aftenen</div><div class="obn-b blue"><div class="obn-head">Google Ads live med Claude</div><div class="obn-desc" id="d-claude-ads"></div></div></div>
+      <div class="obn-row"><div class="obn-t">T+0<br>Aftenen</div><div class="obn-b blue"><div class="obn-head">Make.com SMS-flow aktiveret</div><div class="obn-desc">Formular udfyldt → SMS til klienten inden 2 min. Test med testhenvendelse.</div></div></div>
+      <div class="obn-row"><div class="obn-t">T+24h</div><div class="obn-b green"><div class="obn-head">Ring: "Du er live"</div><div class="obn-desc" id="d-live-call"></div></div></div>
+      <div class="obn-row"><div class="obn-t">Dag 7</div><div class="obn-b gold"><div class="obn-head">Proaktivt check-in</div><div class="obn-desc">"Hej [fornavn] — vi har kørt en uge. Hvad siger det?" Ring INDEN han ringer dig.</div></div></div>
+      <div class="obn-row"><div class="obn-t">Dag 14</div><div class="obn-b gold"><div class="obn-head">Konverter til betaling</div><div class="obn-desc">"Du har fået [X] leads. Nu overgår du til <span id="d-fee4"></span> kr/md." Aktiver Stripe. HubSpot → Aktiv zone.</div></div></div>
+    </div>
+
+    <div class="cl nob" style="margin-top:10px;">
+      <div class="cl-lbl">Onboarding tjekliste</div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Onboarding SMS sendt</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Google Ads live</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">SMS-flow testet og aktivt</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Klient ringet: "du er live nu"</div></div>
+      <div class="ci" onclick="this.classList.toggle('done')"><div class="cib"></div><div class="ci-t">Dag 14 betaling aktiveret</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const zones = [
+  // TYPE 1 — STORBY 6.995 kr/md
+  {n:1, name:"København Indre & Vest", kommune:"Københavns Kommune", type:1, fee:6995, pop:"120K", searches:"800–1200", leads:"25–40", postnr:"1000–1799, 1800–1999", cities:"København K, Vesterbro, Nørrebro", kw:["VVS København","VVS mester København","akut VVS København","varmepumpe København","VVS 1000"]},
+  {n:2, name:"Frederiksberg", kommune:"Frederiksberg Kommune", type:1, fee:6995, pop:"103K", searches:"500–800", leads:"18–30", postnr:"2000", cities:"Frederiksberg", kw:["VVS Frederiksberg","VVS mester Frederiksberg","akut VVS Frederiksberg","varmepumpe Frederiksberg"]},
+  {n:3, name:"Amager", kommune:"Københavns Kommune", type:1, fee:6995, pop:"130K", searches:"600–900", leads:"20–35", postnr:"2300, 2770, 2791", cities:"Amager, Sundby, Kastrup", kw:["VVS Amager","VVS Sundby","akut VVS Amager","varmepumpe Amager"]},
+  {n:4, name:"Brønshøj / Valby / Vanløse", kommune:"Københavns Kommune", type:1, fee:6995, pop:"140K", searches:"600–900", leads:"20–35", postnr:"2400, 2500, 2720, 2730", cities:"Brønshøj, Valby, Vanløse, Glostrup", kw:["VVS Brønshøj","VVS Valby","VVS Vanløse","varmepumpe Valby"]},
+  {n:5, name:"Hellerup / Gentofte", kommune:"Gentofte Kommune", type:1, fee:6995, pop:"75K", searches:"400–600", leads:"15–25", postnr:"2900, 2920, 2930, 2942", cities:"Hellerup, Gentofte, Charlottenlund, Ordrup", kw:["VVS Hellerup","VVS Gentofte","varmepumpe Gentofte","akut VVS Hellerup"]},
+  {n:6, name:"Gladsaxe / Søborg", kommune:"Gladsaxe Kommune", type:1, fee:6995, pop:"70K", searches:"350–550", leads:"12–22", postnr:"2860, 2880", cities:"Gladsaxe, Søborg, Bagsværd", kw:["VVS Gladsaxe","VVS Søborg","varmepumpe Gladsaxe","akut VVS Søborg"]},
+  {n:7, name:"Hvidovre / Rødovre", kommune:"Hvidovre / Rødovre", type:1, fee:6995, pop:"90K", searches:"400–650", leads:"15–25", postnr:"2610, 2650", cities:"Hvidovre, Rødovre", kw:["VVS Hvidovre","VVS Rødovre","varmepumpe Hvidovre","akut VVS Rødovre"]},
+  {n:8, name:"Lyngby / Kgs. Lyngby", kommune:"Lyngby-Taarbæk Kommune", type:1, fee:6995, pop:"55K", searches:"280–450", leads:"12–20", postnr:"2800", cities:"Lyngby, Kongens Lyngby, Virum", kw:["VVS Lyngby","VVS Kongens Lyngby","varmepumpe Lyngby","akut VVS Lyngby"]},
+  {n:9, name:"Aarhus C / V / Ø", kommune:"Aarhus Kommune", type:1, fee:6995, pop:"150K", searches:"900–1300", leads:"30–45", postnr:"8000, 8200, 8210", cities:"Aarhus C, Aarhus V, Aarhus Ø", kw:["VVS Aarhus","VVS mester Aarhus","akut VVS Aarhus","varmepumpe Aarhus"]},
+  {n:10, name:"Aarhus N / Tilst", kommune:"Aarhus Kommune", type:1, fee:6995, pop:"80K", searches:"400–600", leads:"15–25", postnr:"8200, 8381", cities:"Aarhus N, Tilst, Brabrand", kw:["VVS Aarhus Nord","VVS Tilst","varmepumpe Aarhus N","akut VVS Aarhus"]},
+  {n:11, name:"Aarhus S / Viby", kommune:"Aarhus Kommune", type:1, fee:6995, pop:"90K", searches:"450–650", leads:"15–25", postnr:"8260, 8270, 8320", cities:"Viby J, Højbjerg, Åbyhøj", kw:["VVS Viby","VVS Højbjerg","varmepumpe Viby","akut VVS Aarhus Syd"]},
+  {n:12, name:"Brabrand / Hasle / Åby", kommune:"Aarhus Kommune", type:1, fee:6995, pop:"45K", searches:"220–380", leads:"10–18", postnr:"8210", cities:"Brabrand, Hasle, Åby", kw:["VVS Brabrand","VVS Hasle","varmepumpe Brabrand","akut VVS Brabrand"]},
+  {n:13, name:"Odense C / N / Ø", kommune:"Odense Kommune", type:1, fee:6995, pop:"130K", searches:"700–1000", leads:"22–35", postnr:"5000, 5200, 5210, 5220, 5230, 5240", cities:"Odense C, Odense N, Odense Ø", kw:["VVS Odense","VVS mester Odense","akut VVS Odense","varmepumpe Odense"]},
+  {n:14, name:"Odense S / SV / NV", kommune:"Odense Kommune", type:1, fee:6995, pop:"70K", searches:"350–550", leads:"12–22", postnr:"5260, 5270, 5290", cities:"Odense S, Odense SV, Sanderum", kw:["VVS Odense Syd","VVS Sanderum","varmepumpe Odense S","akut VVS Odense"]},
+  {n:15, name:"Aalborg C / SV / S", kommune:"Aalborg Kommune", type:1, fee:6995, pop:"110K", searches:"550–850", leads:"18–30", postnr:"9000, 9200, 9210, 9220", cities:"Aalborg C, Aalborg SV, Aalborg S", kw:["VVS Aalborg","VVS mester Aalborg","akut VVS Aalborg","varmepumpe Aalborg"]},
+  {n:16, name:"Nørresundby / Aalborg NØ", kommune:"Aalborg Kommune", type:1, fee:6995, pop:"55K", searches:"280–450", leads:"10–18", postnr:"9400, 9430", cities:"Nørresundby, Svenstrup, Klarup", kw:["VVS Nørresundby","VVS Svenstrup","varmepumpe Nørresundby","akut VVS Nørresundby"]},
+  // TYPE 2 — ENKELTBY 4.995 kr/md
+  {n:17, name:"Horsens", kommune:"Horsens Kommune", type:2, fee:4995, pop:"64K", searches:"350–500", leads:"8–15", postnr:"8700, 8751, 8740, 8732, 8752", cities:"Horsens, Stensballe, Egebjerg, Hatting, Gedved, Brædstrup, Hovedgård, Østbirk", kw:["VVS Horsens","VVS mester Horsens","akut VVS Horsens","varmepumpe Horsens","fjernvarme Horsens","fjernvarme konvertering Horsens","blikkenslager Horsens","VVS Stensballe","VVS Brædstrup","VVS 8700"],
+   intel:{
+     dominator:{name:"Møllgaard Byens VVS A/S", phone:"75 64 34 88", note:"Grundlagt 1976 · ejer Jens Palmelund · mollgaard.dk · dominerer Google + Maps. Ham du slår i salgssamtalen — ikke ham du ringer til."},
+     portal:"4–6 mestre",
+     source:"Fjernvarme Horsens · autoriseret VVS-register (verificeret)",
+     timing:"⚡ Marked i bevægelse NU: Fjernvarme Horsens konverterer Lund, Gedved, Hovedgård &amp; Østbirk fra gas → udvider fra 14.000 til 20.000 forbrugere. Tusindvis af gas-/oliefyr skal samtidig skiftes til varmepumpe. Massiv VVS-efterspørgsel de næste 2–3 år — brug det som hook i samtalen.",
+     volume:{
+       cluster:"≈150–400", head:"100–1.000", verified:"Keyword Planner · faktisk (juni 2026)",
+       method:"Hentet direkte i Google Ads Keyword Planner (Danmark). Tal vises som Googles intervaller. 'VVS Horsens' lander 100–1.000/md — realistisk ~150–400 for en by på 64K. 'Fjernvarme Horsens' er enormt (1.000–10.000) — mest navigationssøgninger til fjernvarmeværket, men bekræfter temaets vægt og din krog.",
+       rows:[
+         {kw:"fjernvarme Horsens", est:"1.000–10.000", note:"★ enormt · mest til værket · Lav konk."},
+         {kw:"VVS Horsens", est:"100–1.000", note:"head · Middel · bud 12,72–29,39 kr"},
+         {kw:"varmepumpe Horsens", est:"10–100", note:"Middel · bud 9,46–25,16 kr"},
+         {kw:"blikkenslager Horsens", est:"10–100", note:"bud 7,07–26,56 kr"},
+         {kw:"VVS Brædstrup", est:"10–100", note:"forstad · bud 9,58–19,61 kr"},
+         {kw:"akut/mester/pris/Stensballe/8700", est:"<10", note:"for lav til at måle"}
+       ]
+     },
+     adspend:"Møllgaard kører betalt Google Maps-annonce (Sponsoreret) — bekræftet juni 2026. Konkurrence Middel · top-budpris 12,72–29,39 kr/klik på 'VVS Horsens'. Est. forbrug ved fuld dækning: ~2.700–5.400 kr/md.",
+     sharpest:[
+       {name:"Lyngsø VVS", r:"4,9★ (72)", why:"Byens bedst bedømte installatør — men usynlig på Google. Martin H. Pedersen · 78 70 35 25."},
+       {name:"Torsted VVS", r:"4,6★ (18)", why:"Åben 24 timer = akut-profil. Jesper Oksen · 20 28 21 67."},
+       {name:"Egebjerg VVS", r:"5,0★ (9)", why:"Perfekt rating, lav synlighed. 40 45 54 38."}
+     ],
+     ctr:{
+       note:"Organisk CTR pr. Google-placering · GrowthSRC 200K-keyword-studie 2025 + Backlinko. AI Overviews (~30 % af søgninger) kan halvere tallene yderligere.",
+       top3:"68,7 % af alle klik går til top 3",
+       curve:[["#1","27 %"],["#2","15 %"],["#3","11 %"],["#4","8 %"],["#5","6 %"],["#6","4,5 %"],["#7–10","2–3,5 %"],["11+","<1 %"]],
+       dominatorRank:"#1 organisk + Maps-pack → æder ~27 % = ~25–55 head-klik/md"
+     },
+     callscript:{
+       open:"Hej, taler jeg med [fornavn]? Det er [dit navn] fra VVSZone. Fanger jeg dig 30 sekunder — så lover jeg det er kort?",
+       hook:"Jeg har kigget på VVS-markedet i Horsens. Der er 90–210 om måneden der googler 'VVS Horsens', plus en hel bølge lige nu der skal fra gas til fjernvarme og varmepumpe i Lund, Gedved, Hovedgård og Østbirk. Lige nu er det <b>Møllgaard</b> der ligger nr. 1 og fanger stort set alle de klik — jeres firma dukker reelt ikke op på side 1. Arbejder I aktivt med at komme foran på Google i dag?",
+       ask:[
+         "Hvor kommer jeres kunder typisk fra i dag — anbefalinger, eller også online?",
+         "De store jobs — varmepumpe, badeværelse, fjernvarmekonvertering — hvis nogen søger det i Horsens i morgen, hvem får dem så?",
+         "Og i de stille perioder, januar–februar — kunne I bruge et jævnt flow af lokale henvendelser?"
+       ],
+       solution:"Det er præcis det jeg ringer om. VVSZone giver ÉT VVS-firma i Horsens alle de leads Google og vores side genererer — <b>eksklusivt, ingen deling.</b> Når naboen googler VVS, ryger henvendelsen direkte på din telefon inden 2 minutter. Pladsen i Horsens er ledig nu — den går til én. Det kan være jer.",
+       close:"Må jeg vise dig det live på 15 minutter? Passer <i>onsdag kl. 10</i> — eller er <i>torsdag kl. 14</i> nemmere?",
+       objections:[
+         ["\"Vi har nok at lave\"","\"Fedt — det har I i juni. Hvad med januar? Det her sikrer flow året rundt, og første måned er gratis. Passer onsdag?\""],
+         ["\"Vi bruger ikke Google\"","\"Det behøver I heller ikke — jeres kunder gør. 90–210 søger 'VVS Horsens' hver måned. Lige nu får Møllgaard dem. Skal vi vende det på 15 min?\""],
+         ["\"Hvad koster det?\"","\"4.995/md, første måned gratis, ingen binding. Mødet koster ingenting. Passer torsdag kl. 14?\""],
+         ["\"Send noget på mail\"","\"Nemmere at vise live — 15 min, så ser du din egen Horsens-side. Onsdag eller torsdag?\""],
+         ["\"Vi har allerede et bureau\"","\"Hvor mange eksklusive Horsens-leads giver de jer om måneden? Det her er kun din by, kun jer. Lad mig vise forskellen.\""]
+       ]
+     },
+     email:{
+       subject:"Horsens — hurtigt spørgsmål om jeres VVS-leads",
+       body:"Hej [fornavn],<br><br>Jeg kiggede på VVS-markedet i Horsens. Lige nu fanger Møllgaard stort set alle de 90–210 der googler 'VVS Horsens' hver måned — plus bølgen af fjernvarme- og varmepumpe-konverteringer i Lund, Gedved og Hovedgård.<br><br>Jeres firma dukker reelt ikke op på side 1.<br><br>Jeg ringer i morgen tidlig med en konkret idé — tager 2 minutter.<br><br>[dit navn] · VVSZone · [telefon]"
+     },
+     sms:[
+       {lbl:"Ej svar på opkald", txt:"Hej [fornavn], prøvede at fange dig — [dit navn] fra VVSZone. Kort idé om de VVS-leads i Horsens som Møllgaard ellers tager. Ringer igen kl. [tid], eller skriv hvornår der passer 👍"},
+       {lbl:"Bekræft møde", txt:"Tak [fornavn]! Bekræfter vores 15 min [dag] kl. [tid]. Jeg viser dig live hvor mange Horsens-søgninger der lige nu ryger til andre. Vi ses 👍 — [dit navn]"}
+     ],
+     meeting:[
+       {h:"Åbning", t:"\"[Fornavn] — fedt du tog mødet. 20 minutter, så kan du beslutte. Lyder det fair?\""},
+       {h:"Vis problemet live", t:"[Søg 'VVS Horsens' inkognito foran ham] \"Hvem ser du øverst?\" → Møllgaard. \"De fanger ~27 % af alle klik — 25–55 kunder/md der ellers kunne ringe til jer. Og I står hernede.\" [scroll til side 2]"},
+       {h:"Fjernvarme-vinklen", t:"\"Lige nu konverterer store dele af Horsens fra gas til fjernvarme og varmepumpe — Lund, Gedved, Hovedgård, Østbirk. Det er de største jobs i årevis. Hvem fanger dem på Google i dag? Ikke jer.\""},
+       {h:"Vis zonen", t:"[Åbn vvszone.dk/vvs-horsens] \"Det her er din side. Alle der lander her ringer KUN til jer. Ingen andre. Nogensinde.\""},
+       {h:"ROI · hans egne tal", t:"\"Hvad er et gennemsnitsjob for jer?\" [vent] → Bare 2–3 ekstra varmepumpe-jobs/md. 8–15 leads × 30 % close = 2–5 jobs. Fee 4.995 → breakeven på ÉT job."},
+       {h:"Close", t:"\"2 uger gratis. Ingen binding. 4.995/md bagefter. Vi kan have dig live i morgen. Vil du starte?\"  🔴 TI STILLE."}
+     ],
+     calllist:[
+       {prio:"A", name:"Devantier VVS", contact:"Michael Devantier", phone:"75 64 55 66", email:"post@devantier.dk", site:"devantier.dk", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"Nortech VVS ApS", contact:"Christoffer Mau", phone:"26 78 34 34", email:"info@nortech-vvs.dk", site:"nortech-vvs.dk", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"Horsens Energiteknik", contact:"Fayaz Salimi", phone:"22 92 02 88", email:"horsens.energiteknik@gmail.com", site:"horsens-energiteknik.dk", rank:"≈#8 · ~3 %"},
+       {prio:"A", name:"PP Smed - VVS", contact:"Peter Nielsen", phone:"20 14 48 38", email:"peter@ppvvs.dk", site:"ppvvs.dk", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"WorkFlow VVS ApS", contact:"Henrik Nutzhorn", phone:"61 48 04 54", email:"workflowvvs@gmail.com", site:"—", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"Torsted VVS ApS", contact:"Jesper Oksen", phone:"20 28 21 67", email:"torstedvvs@gmail.com", rating:"4,6★ (18)", site:"—", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"Horsens Blik & VVS Teknik", contact:"Torben Blicher", phone:"60 14 51 43", email:"torben@horsensvvsteknik.dk", site:"horsensvvsteknik.dk", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"Horsens VVS ApS", contact:"Bertil Jensen", phone:"28 74 66 79", email:"horsensvvs@mail.dk", site:"—", rank:"≈11+ · ~0 %"},
+       {prio:"B", name:"HON VVS A/S", contact:"Thomas Pedersen", phone:"75 64 71 11", email:"kontakt@honvvs.dk", rating:"4,3★ (18)", site:"honvvs.dk", rank:"≈#5 · ~6 %"},
+       {prio:"A", name:"Lyngsø VVS ApS", contact:"Martin H. Pedersen", phone:"78 70 35 25", email:"mhp@lyngsoevvs.dk", rating:"4,9★ (72)", site:"lyngsoevvs.dk", rank:"≈11+ · ~0 %"},
+       {prio:"B", name:"VVS Kompagniet (8700)", contact:"Simon/Martin", phone:"81 72 87 00", email:"mail@vvs8700.dk", site:"vvs8700.dk", rank:"≈11+ · Maps-stærk"},
+       {prio:"B", name:"Adelholm VVS ApS", contact:"—", phone:"75 65 56 01", email:"adelholm.vvs@mail.dk", site:"adelholmvvs.dk", rank:"≈11+ · ~0 %"},
+       {prio:"A", name:"Egebjerg VVS ApS", contact:"—", phone:"40 45 54 38", email:"vvs@egebjergvvs.dk", rating:"5,0★ (9)", site:"egebjerg-vvs.dk", rank:"≈11+ · ~0 %"},
+       {prio:"B", name:"Aage Jensen A/S", contact:"Lennart Karoliussen", phone:"40 17 37 83", email:"lk@aagejensenvvs.dk", site:"aagejensenvvs.dk", rank:"≈11+ · ~0 %"},
+       {prio:"B", name:"Østjysk VVS Teknik", contact:"Kenneth/Søren", phone:"75 64 11 89", email:"info@ostjyskvvsteknik.dk", rating:"3,8★ (11)", site:"ostjyskvvsteknik.dk", rank:"≈11+ · ~0 %"},
+       {prio:"B", name:"John Jensen VVS & Blik", contact:"—", phone:"75 62 58 89", email:"helle.vvs@stofanet.dk", rating:"3,6★ (23)", site:"vvs-horsens.dk", rank:"≈11+ · ~0 %"}
+     ]
+   }},
+  {n:18, name:"Vejle", kommune:"Vejle Kommune", type:2, fee:4995, pop:"55K", searches:"320–480", leads:"8–14", postnr:"7100, 7120, 7130", cities:"Vejle, Bredballe, Give", kw:["VVS Vejle","VVS mester Vejle","akut VVS Vejle","varmepumpe Vejle","VVS 7100"]},
+  {n:19, name:"Kolding", kommune:"Kolding Kommune", type:2, fee:4995, pop:"60K", searches:"350–520", leads:"8–15", postnr:"6000, 6051, 6052", cities:"Kolding, Bramdrupdam, Seest", kw:["VVS Kolding","VVS mester Kolding","akut VVS Kolding","varmepumpe Kolding","VVS 6000"]},
+  {n:20, name:"Esbjerg", kommune:"Esbjerg Kommune", type:2, fee:4995, pop:"72K", searches:"420–620", leads:"10–18", postnr:"6700, 6705, 6710, 6715, 6720, 6740", cities:"Esbjerg, Esbjerg N, Ribe", kw:["VVS Esbjerg","VVS mester Esbjerg","akut VVS Esbjerg","varmepumpe Esbjerg"]},
+  {n:21, name:"Randers", kommune:"Randers Kommune", type:2, fee:4995, pop:"65K", searches:"380–560", leads:"9–16", postnr:"8900, 8920, 8930, 8940", cities:"Randers C, Randers NV, Randers NØ", kw:["VVS Randers","VVS mester Randers","akut VVS Randers","varmepumpe Randers"]},
+  {n:22, name:"Silkeborg", kommune:"Silkeborg Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"8600, 8620, 8641, 8643", cities:"Silkeborg, Kjellerup, Gjern", kw:["VVS Silkeborg","VVS mester Silkeborg","akut VVS Silkeborg","varmepumpe Silkeborg"]},
+  {n:23, name:"Herning", kommune:"Herning Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"7400, 7430, 7441, 7442", cities:"Herning, Ikast, Hammerum", kw:["VVS Herning","VVS mester Herning","akut VVS Herning","varmepumpe Herning"]},
+  {n:24, name:"Viborg", kommune:"Viborg Kommune", type:2, fee:4995, pop:"40K", searches:"240–380", leads:"7–13", postnr:"8800, 8830, 8840, 8850, 8860, 8870", cities:"Viborg, Bjerringbro, Karup", kw:["VVS Viborg","VVS mester Viborg","akut VVS Viborg","varmepumpe Viborg"]},
+  {n:25, name:"Fredericia", kommune:"Fredericia Kommune", type:2, fee:4995, pop:"40K", searches:"240–360", leads:"7–12", postnr:"7000", cities:"Fredericia", kw:["VVS Fredericia","VVS mester Fredericia","akut VVS Fredericia","varmepumpe Fredericia"]},
+  {n:26, name:"Holstebro", kommune:"Holstebro Kommune", type:2, fee:4995, pop:"40K", searches:"240–360", leads:"7–12", postnr:"7500, 7510", cities:"Holstebro, Vinderup, Ulfborg", kw:["VVS Holstebro","VVS mester Holstebro","akut VVS Holstebro","varmepumpe Holstebro"]},
+  {n:27, name:"Slagelse", kommune:"Slagelse Kommune", type:2, fee:4995, pop:"35K", searches:"200–320", leads:"6–12", postnr:"4200", cities:"Slagelse, Korsør, Skælskør", kw:["VVS Slagelse","VVS mester Slagelse","akut VVS Slagelse","varmepumpe Slagelse"]},
+  {n:28, name:"Næstved", kommune:"Næstved Kommune", type:2, fee:4995, pop:"45K", searches:"260–400", leads:"7–13", postnr:"4700", cities:"Næstved, Fensmark, Rønnede", kw:["VVS Næstved","VVS mester Næstved","akut VVS Næstved","varmepumpe Næstved"]},
+  {n:29, name:"Sønderborg", kommune:"Sønderborg Kommune", type:2, fee:4995, pop:"27K", searches:"160–260", leads:"5–10", postnr:"6400", cities:"Sønderborg, Augustenborg, Nordborg", kw:["VVS Sønderborg","VVS mester Sønderborg","akut VVS Sønderborg","varmepumpe Sønderborg"]},
+  {n:30, name:"Køge", kommune:"Køge Kommune", type:2, fee:4995, pop:"40K", searches:"240–360", leads:"7–12", postnr:"4600", cities:"Køge, Lellinge, Bjæverskov", kw:["VVS Køge","VVS mester Køge","akut VVS Køge","varmepumpe Køge"]},
+  {n:31, name:"Roskilde", kommune:"Roskilde Kommune", type:2, fee:4995, pop:"50K", searches:"300–460", leads:"8–14", postnr:"4000", cities:"Roskilde, Jyllinge, Lejre", kw:["VVS Roskilde","VVS mester Roskilde","akut VVS Roskilde","varmepumpe Roskilde"]},
+  {n:32, name:"Hillerød", kommune:"Hillerød Kommune", type:2, fee:4995, pop:"32K", searches:"190–300", leads:"6–10", postnr:"3400", cities:"Hillerød, Skævinge, Uvelse", kw:["VVS Hillerød","VVS mester Hillerød","akut VVS Hillerød","varmepumpe Hillerød"]},
+  {n:33, name:"Helsingør", kommune:"Helsingør Kommune", type:2, fee:4995, pop:"35K", searches:"200–320", leads:"6–12", postnr:"3000", cities:"Helsingør, Snekkersten, Espergærde", kw:["VVS Helsingør","VVS mester Helsingør","akut VVS Helsingør","varmepumpe Helsingør"]},
+  {n:34, name:"Svendborg", kommune:"Svendborg Kommune", type:2, fee:4995, pop:"28K", searches:"160–260", leads:"5–10", postnr:"5700, 5762, 5771, 5772", cities:"Svendborg, Stenstrup, Ollerup", kw:["VVS Svendborg","VVS mester Svendborg","akut VVS Svendborg","varmepumpe Svendborg"]},
+  {n:35, name:"Skive", kommune:"Skive Kommune", type:2, fee:4995, pop:"28K", searches:"160–260", leads:"5–10", postnr:"7800, 7860, 7870, 7884", cities:"Skive, Egeris, Roslev", kw:["VVS Skive","VVS mester Skive","akut VVS Skive","varmepumpe Skive"]},
+  {n:36, name:"Holbæk", kommune:"Holbæk Kommune", type:2, fee:4995, pop:"32K", searches:"190–300", leads:"6–10", postnr:"4300", cities:"Holbæk, Jyderup, Tølløse", kw:["VVS Holbæk","VVS mester Holbæk","akut VVS Holbæk","varmepumpe Holbæk"]},
+  {n:37, name:"Frederikshavn", kommune:"Frederikshavn Kommune", type:2, fee:4995, pop:"37K", searches:"220–340", leads:"6–12", postnr:"9900, 9970, 9981, 9990", cities:"Frederikshavn, Skagen, Strandby", kw:["VVS Frederikshavn","VVS mester Frederikshavn","akut VVS Frederikshavn","varmepumpe Frederikshavn"]},
+  {n:38, name:"Hjørring", kommune:"Hjørring Kommune", type:2, fee:4995, pop:"35K", searches:"200–320", leads:"6–11", postnr:"9800, 9850, 9870, 9900", cities:"Hjørring, Hirtshals, Løkken", kw:["VVS Hjørring","VVS mester Hjørring","akut VVS Hjørring","varmepumpe Hjørring"]},
+  {n:39, name:"Haderslev", kommune:"Haderslev Kommune", type:2, fee:4995, pop:"32K", searches:"190–300", leads:"6–11", postnr:"6100", cities:"Haderslev, Gram, Vojens", kw:["VVS Haderslev","VVS mester Haderslev","akut VVS Haderslev","varmepumpe Haderslev"]},
+  {n:40, name:"Ringsted", kommune:"Ringsted Kommune", type:2, fee:4995, pop:"25K", searches:"150–240", leads:"5–9", postnr:"4100", cities:"Ringsted, Benløse", kw:["VVS Ringsted","VVS mester Ringsted","akut VVS Ringsted","varmepumpe Ringsted"]},
+  {n:41, name:"Nykøbing Falster", kommune:"Guldborgsund Kommune", type:2, fee:4995, pop:"25K", searches:"150–240", leads:"5–9", postnr:"4800", cities:"Nykøbing F, Sakskøbing, Nysted", kw:["VVS Nykøbing Falster","VVS mester Nykøbing F","akut VVS Nykøbing Falster","varmepumpe Nykøbing F"]},
+  {n:42, name:"Aabenraa", kommune:"Aabenraa Kommune", type:2, fee:4995, pop:"25K", searches:"150–240", leads:"5–9", postnr:"6200", cities:"Aabenraa, Rødekro, Bov", kw:["VVS Aabenraa","VVS mester Aabenraa","akut VVS Aabenraa","varmepumpe Aabenraa"]},
+  {n:43, name:"Faxe / Haslev", kommune:"Faxe Kommune", type:2, fee:4995, pop:"26K", searches:"150–250", leads:"5–9", postnr:"4640, 4690", cities:"Haslev, Faxe, Rønnede", kw:["VVS Haslev","VVS Faxe","akut VVS Haslev","varmepumpe Haslev"]},
+  {n:44, name:"Middelfart", kommune:"Middelfart Kommune", type:2, fee:4995, pop:"26K", searches:"150–250", leads:"5–9", postnr:"5500", cities:"Middelfart, Strib, Ejby", kw:["VVS Middelfart","VVS mester Middelfart","akut VVS Middelfart","varmepumpe Middelfart"]},
+  // TYPE 3 — CLUSTER 3.995 kr/md
+  {n:45, name:"Skanderborg / Odder", kommune:"Skanderborg / Odder", type:3, fee:3995, pop:"30K", searches:"170–280", leads:"5–9", postnr:"8660, 8300", cities:"Skanderborg, Odder, Galten", kw:["VVS Skanderborg","VVS Odder","varmepumpe Skanderborg","akut VVS Skanderborg"]},
+  {n:46, name:"Hedensted / Juelsminde", kommune:"Hedensted Kommune", type:3, fee:3995, pop:"28K", searches:"160–260", leads:"5–9", postnr:"7160, 7130, 7140", cities:"Hedensted, Juelsminde, Tørring", kw:["VVS Hedensted","VVS Juelsminde","varmepumpe Hedensted","akut VVS Hedensted"]},
+  {n:47, name:"Greve / Solrød", kommune:"Greve / Solrød", type:3, fee:3995, pop:"55K", searches:"280–420", leads:"8–14", postnr:"2670, 2680", cities:"Greve, Solrød Strand, Karlslunde", kw:["VVS Greve","VVS Solrød","varmepumpe Greve","akut VVS Greve"]},
+  {n:48, name:"Ishøj / Vallensbæk", kommune:"Ishøj / Vallensbæk", type:3, fee:3995, pop:"40K", searches:"200–320", leads:"6–11", postnr:"2635, 2665", cities:"Ishøj, Vallensbæk, Taastrup", kw:["VVS Ishøj","VVS Vallensbæk","varmepumpe Ishøj","akut VVS Ishøj"]},
+  {n:49, name:"Ballerup / Måløv", kommune:"Ballerup Kommune", type:3, fee:3995, pop:"50K", searches:"250–400", leads:"7–13", postnr:"2750, 2760", cities:"Ballerup, Måløv, Skovlunde", kw:["VVS Ballerup","VVS Måløv","varmepumpe Ballerup","akut VVS Ballerup"]},
+  {n:50, name:"Albertslund / Glostrup", kommune:"Albertslund / Glostrup", type:3, fee:3995, pop:"45K", searches:"220–360", leads:"7–12", postnr:"2600, 2620, 2630", cities:"Glostrup, Albertslund, Brøndby", kw:["VVS Glostrup","VVS Albertslund","varmepumpe Glostrup","akut VVS Glostrup"]},
+  {n:51, name:"Birkerød / Allerød", kommune:"Rudersdal / Allerød", type:3, fee:3995, pop:"40K", searches:"200–320", leads:"6–11", postnr:"3450, 3550", cities:"Birkerød, Allerød, Vedbæk", kw:["VVS Birkerød","VVS Allerød","varmepumpe Birkerød","akut VVS Birkerød"]},
+  {n:52, name:"Farum / Værløse", kommune:"Furesø Kommune", type:3, fee:3995, pop:"35K", searches:"180–290", leads:"5–10", postnr:"3500, 3520", cities:"Farum, Værløse, Hareskov", kw:["VVS Farum","VVS Værløse","varmepumpe Farum","akut VVS Farum"]},
+  {n:53, name:"Vordingborg / Præstø", kommune:"Vordingborg Kommune", type:3, fee:3995, pop:"26K", searches:"150–250", leads:"5–9", postnr:"4760, 4720", cities:"Vordingborg, Præstø, Stege", kw:["VVS Vordingborg","VVS Præstø","varmepumpe Vordingborg","akut VVS Vordingborg"]},
+  {n:54, name:"Kalundborg / Svebølle", kommune:"Kalundborg Kommune", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"4400", cities:"Kalundborg, Svebølle, Reersø", kw:["VVS Kalundborg","VVS Svebølle","varmepumpe Kalundborg","akut VVS Kalundborg"]},
+  {n:55, name:"Sorø / Dianalund", kommune:"Sorø Kommune", type:3, fee:3995, pop:"25K", searches:"140–230", leads:"5–8", postnr:"4180, 4295", cities:"Sorø, Dianalund, Stenlille", kw:["VVS Sorø","VVS Dianalund","varmepumpe Sorø","akut VVS Sorø"]},
+  {n:56, name:"Assens / Glamsbjerg", kommune:"Assens Kommune", type:3, fee:3995, pop:"25K", searches:"140–230", leads:"5–8", postnr:"5610, 5620", cities:"Assens, Glamsbjerg, Tommerup", kw:["VVS Assens","VVS Glamsbjerg","varmepumpe Assens","akut VVS Assens"]},
+  {n:57, name:"Kerteminde / Nyborg", kommune:"Kerteminde / Nyborg", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–9", postnr:"5300, 5800", cities:"Kerteminde, Nyborg, Marslev", kw:["VVS Kerteminde","VVS Nyborg","varmepumpe Kerteminde","akut VVS Nyborg"]},
+  {n:58, name:"Faaborg / Ringe", kommune:"Faaborg-Midtfyn", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"5600, 5750", cities:"Faaborg, Ringe, Ryslinge", kw:["VVS Faaborg","VVS Ringe","varmepumpe Faaborg","akut VVS Faaborg"]},
+  {n:59, name:"Vejen / Brørup", kommune:"Vejen Kommune", type:3, fee:3995, pop:"28K", searches:"155–260", leads:"5–9", postnr:"6600, 6650", cities:"Vejen, Brørup, Rødding", kw:["VVS Vejen","VVS Brørup","varmepumpe Vejen","akut VVS Vejen"]},
+  {n:60, name:"Varde / Tistrup", kommune:"Varde Kommune", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"6800, 6818", cities:"Varde, Tistrup, Nr. Nebel", kw:["VVS Varde","VVS Tistrup","varmepumpe Varde","akut VVS Varde"]},
+  {n:61, name:"Ringkøbing / Skjern", kommune:"Ringkøbing-Skjern", type:3, fee:3995, pop:"28K", searches:"155–260", leads:"5–9", postnr:"6900, 6950", cities:"Ringkøbing, Skjern, Videbæk", kw:["VVS Ringkøbing","VVS Skjern","varmepumpe Ringkøbing","akut VVS Ringkøbing"]},
+  {n:62, name:"Struer / Lemvig", kommune:"Struer / Lemvig", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"7600, 7620", cities:"Struer, Lemvig, Thyborøn", kw:["VVS Struer","VVS Lemvig","varmepumpe Struer","akut VVS Struer"]},
+  {n:63, name:"Thisted / Hurup", kommune:"Thisted Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"7700, 7760", cities:"Thisted, Hurup, Nors", kw:["VVS Thisted","VVS Hurup","varmepumpe Thisted","akut VVS Thisted"]},
+  {n:64, name:"Ikast / Brande", kommune:"Ikast-Brande", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"7430, 7330", cities:"Ikast, Brande, Bording", kw:["VVS Ikast","VVS Brande","varmepumpe Ikast","akut VVS Ikast"]},
+  {n:65, name:"Tønder / Løgumkloster", kommune:"Tønder Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"6270, 6240", cities:"Tønder, Løgumkloster, Skærbæk", kw:["VVS Tønder","VVS Løgumkloster","varmepumpe Tønder","akut VVS Tønder"]},
+  {n:66, name:"Mariagerfjord", kommune:"Mariagerfjord Kommune", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"9500, 9510, 9550", cities:"Hobro, Mariager, Hadsund", kw:["VVS Hobro","VVS Mariager","varmepumpe Hobro","akut VVS Hobro"]},
+  {n:67, name:"Vesthimmerland", kommune:"Vesthimmerlands Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"9600, 9640, 9670", cities:"Aars, Farsø, Nibe", kw:["VVS Aars","VVS Farsø","varmepumpe Aars","akut VVS Vesthimmerland"]},
+  {n:68, name:"Rebild / Støvring", kommune:"Rebild Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"9520, 9530", cities:"Støvring, Nørager, Skørping", kw:["VVS Støvring","VVS Skørping","varmepumpe Støvring","akut VVS Rebild"]},
+  {n:69, name:"Morsø / Nykøbing Mors", kommune:"Morsø Kommune", type:3, fee:3995, pop:"20K", searches:"110–190", leads:"4–7", postnr:"7900", cities:"Nykøbing Mors, Erslev, Øster Jølby", kw:["VVS Nykøbing Mors","VVS Morsø","varmepumpe Nykøbing Mors","akut VVS Morsø"]},
+  {n:70, name:"Jammerbugt / Pandrup", kommune:"Jammerbugt Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"9490, 9460", cities:"Pandrup, Fjerritslev, Aabybro", kw:["VVS Pandrup","VVS Fjerritslev","varmepumpe Pandrup","akut VVS Jammerbugt"]},
+  {n:71, name:"Brønderslev / Dronninglund", kommune:"Brønderslev Kommune", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"9700", cities:"Brønderslev, Dronninglund, Asaa", kw:["VVS Brønderslev","VVS Dronninglund","varmepumpe Brønderslev","akut VVS Brønderslev"]},
+  {n:72, name:"Stevns / Store Heddinge", kommune:"Stevns Kommune", type:3, fee:3995, pop:"22K", searches:"120–200", leads:"4–7", postnr:"4660, 4671", cities:"Store Heddinge, Hårlev, Rødvig", kw:["VVS Store Heddinge","VVS Stevns","varmepumpe Store Heddinge","akut VVS Stevns"]},
+  {n:73, name:"Lejre / Hvalsø", kommune:"Lejre Kommune", type:3, fee:3995, pop:"25K", searches:"140–230", leads:"5–8", postnr:"4320, 4330", cities:"Hvalsø, Lejre, Kirke Hyllinge", kw:["VVS Hvalsø","VVS Lejre","varmepumpe Hvalsø","akut VVS Lejre"]},
+  {n:74, name:"Guldborgsund / Maribo", kommune:"Guldborgsund Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"4930, 4900", cities:"Maribo, Nakskov, Rødby", kw:["VVS Maribo","VVS Nakskov","varmepumpe Maribo","akut VVS Maribo"]},
+  {n:75, name:"Odsherred / Nykøbing Sj.", kommune:"Odsherred Kommune", type:3, fee:3995, pop:"25K", searches:"140–230", leads:"5–8", postnr:"4500, 4550", cities:"Nykøbing Sj., Asnæs, Vig", kw:["VVS Nykøbing Sj","VVS Asnæs","varmepumpe Nykøbing Sj","akut VVS Odsherred"]},
+  {n:76, name:"Vordingborg / Bårse", kommune:"Vordingborg Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"4771, 4780", cities:"Præstø, Stege, Vordingborg N", kw:["VVS Stege","VVS Præstø","varmepumpe Stege","akut VVS Stege"]},
+  {n:77, name:"Norddjurs / Grenaa", kommune:"Norddjurs Kommune", type:3, fee:3995, pop:"27K", searches:"150–250", leads:"5–9", postnr:"8500", cities:"Grenaa, Auning, Allingåbro", kw:["VVS Grenaa","VVS Auning","varmepumpe Grenaa","akut VVS Grenaa"]},
+  {n:78, name:"Syddjurs / Ebeltoft", kommune:"Syddjurs Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"8400, 8420", cities:"Ebeltoft, Rønde, Ryomgård", kw:["VVS Ebeltoft","VVS Rønde","varmepumpe Ebeltoft","akut VVS Ebeltoft"]},
+  {n:79, name:"Favrskov / Hadsten", kommune:"Favrskov Kommune", type:3, fee:3995, pop:"26K", searches:"145–240", leads:"5–8", postnr:"8370, 8380", cities:"Hadsten, Hinnerup, Hammel", kw:["VVS Hadsten","VVS Hinnerup","varmepumpe Hadsten","akut VVS Hinnerup"]}
+];
+
+// Build index
+const grid = document.getElementById('ziGrid');
+const sel = document.getElementById('zoneSelect');
+zones.forEach(z => {
+  // Grid item
+  const el = document.createElement('div');
+  el.className = `zi-item t${z.type}`;
+  el.innerHTML = `<span class="zi-num">Zone ${z.n} · Type ${z.type}</span><span class="zi-name">${z.name}</span><span class="zi-fee">${z.fee.toLocaleString('da')} kr/md · ${z.pop}</span>`;
+  el.onclick = () => selectZone(z.n);
+  grid.appendChild(el);
+  // Select option
+  const opt = document.createElement('option');
+  opt.value = z.n;
+  opt.textContent = `Zone ${z.n} — ${z.name}`;
+  sel.appendChild(opt);
+});
+
+function selectZone(n) {
+  if(!n) return showIndex();
+  const z = zones.find(x => x.n == n);
+  if(!z) return;
+  document.getElementById('zoneIndex').style.display = 'none';
+  const wrap = document.getElementById('zoneDetail');
+  wrap.classList.add('active');
+  sel.value = n;
+  // Fill header
+  document.getElementById('d-zone-label').textContent = `Zone ${z.n} · Type ${z.type} · ${z.kommune}`;
+  document.getElementById('d-name').textContent = z.name;
+  document.getElementById('d-meta').innerHTML = `Postnr: ${z.postnr}<br>Byer: ${z.cities}`;
+  document.getElementById('d-fee').textContent = z.fee.toLocaleString('da');
+  document.getElementById('d-fee2').textContent = z.fee.toLocaleString('da');
+  document.getElementById('d-fee3').textContent = z.fee.toLocaleString('da');
+  document.getElementById('d-fee4').textContent = z.fee.toLocaleString('da');
+  document.getElementById('d-pop').textContent = z.pop;
+  document.getElementById('d-searches').textContent = z.searches;
+  document.getElementById('d-searches2').textContent = z.searches;
+  document.getElementById('d-leads').textContent = z.leads;
+  document.getElementById('d-leads2').textContent = z.leads;
+  document.getElementById('d-type').textContent = `Type ${z.type}`;
+  // Step 1 search
+  document.getElementById('s-search1').textContent = `"VVS ${z.name.split(' /')[0]}"`;
+  // Keywords
+  document.getElementById('d-keywords').innerHTML = z.kw.map(k => `· ${k}`).join('<br>');
+  // Question 5 & obj
+  const city1 = z.name.split(' /')[0];
+  document.getElementById('s-q5').textContent = `varmepumpe ${city1}`;
+  document.getElementById('s-q5b').textContent = `varmepumpe ${city1}`;
+  document.getElementById('s-live1').textContent = `VVS ${city1}`;
+  document.getElementById('s-url').textContent = `vvszone.dk/vvs-${city1.toLowerCase().replace(/ /g, '-')}`;
+  // Claude side
+  document.getElementById('d-claude-side').innerHTML =
+    `"Byg en VVSZone landingsside for <strong>${z.name}</strong>.<br><br>Postnumre: <strong>${z.postnr}</strong><br>Befolkning: <strong>${z.pop}</strong><br>Byer i zonen: <strong>${z.cities}</strong><br><br>Design: mørk baggrund #07090F, blå accent #1B6FFF, hvid tekst. Formular øverst. Headline med '${city1} VVS' og 'Kun én mester'. 1.200 ord lokalt SEO-indhold. FAQ med 5 spørgsmål om VVS i ${city1}."`;
+  // Claude email
+  document.getElementById('d-claude-email').innerHTML =
+    `"Skriv en pre-call email til <strong>[fornavn]</strong> fra <strong>[firmanavn]</strong> i <strong>${z.name}</strong>.<br><br>Min observation: <strong>[fx: hjemmeside fra 2016 / bekræftet på 3byggetilbud / konkurrent dominerer Google]</strong><br><br>Email: max 4 linjer, varm og direkte, sig at jeg ringer i morgen morges. Emne starter med '<em>${city1}</em> — '"`;
+  // Claude ads
+  document.getElementById('d-claude-ads').innerHTML =
+    `Giv Claude: by=${z.name}, postnr=${z.postnr}, klientens tlf, ydelser. Claude skriver kampagne + 3 annoncegrupper: generel VVS, akut VVS, varmepumpe. Budget: ${z.type===1?'8.000':z.type===2?'4.000':'3.000'} kr/md.`;
+  // Live call text
+  document.getElementById('d-live-call').textContent =
+    `"Hej [fornavn] — du er live. Næste gang nogen googler VVS i ${city1} ser de din side. Leads ryger direkte på din telefon inden 2 minutter."`;
+  // Market analysis auto-fill
+  document.getElementById('ma-searches').textContent = z.searches;
+  document.getElementById('ma-leads').textContent = z.leads;
+  document.getElementById('ma-fee').textContent = z.fee.toLocaleString('da') + ' kr';
+  document.getElementById('ma-roi-leads').textContent = z.leads;
+  const leadsArr = z.leads.split('–');
+  const leadsMid = (parseInt(leadsArr[0]) + parseInt(leadsArr[1]||leadsArr[0])) / 2;
+  const revEst = Math.round(leadsMid * 0.3 * 70851 / 1000) + 'K';
+  document.getElementById('ma-roi-revenue').textContent = revEst + ' kr';
+  document.getElementById('ma-roi-breakeven').textContent = leadsMid > 0 ? Math.ceil(z.fee / (leadsMid * 0.3 * 70851)) + ' mdr' : '–';
+  document.getElementById('ma-city-call').textContent = city1;
+  document.getElementById('ma-vol-call').textContent = z.searches + ' folk';
+  document.getElementById('ma-maps-search').textContent = '"VVS ' + city1 + '"';
+  document.getElementById('ma-kw-list').textContent = z.kw.slice(0,3).join(' · ');
+  document.getElementById('ma-postnr').textContent = z.postnr.split(',')[0].trim();
+  ['ma-konkurrent','ma-adsspend','ma-portal','ma-actualvol','ma-owner1','ma-phone1'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value = '';
+  });
+  document.getElementById('ma-konkurrent-call').textContent = '[ konkurrentnavn indsættes ovenfor ]';
+  // Prefill fra verificeret intel
+  if(z.intel){
+    const set=(id,v)=>{const e=document.getElementById(id); if(e) e.value=v;};
+    set('ma-konkurrent', z.intel.dominator.name);
+    set('ma-portal', z.intel.portal);
+    const firstA = z.intel.calllist.find(c=>c.prio==='A');
+    if(firstA){ if(firstA.contact!=='—') set('ma-owner1', firstA.contact); set('ma-phone1', firstA.phone); }
+    document.getElementById('ma-konkurrent-call').textContent = z.intel.dominator.name;
+    set('ma-actualvol', z.intel.volume ? ('VVS Horsens '+z.intel.volume.head+'/md (KP) · realistisk '+z.intel.volume.cluster) : '');
+    if(z.intel.adspend) set('ma-adsspend', 'Møllgaard kører Maps-annonce · bud 12,72–29,39 kr/klik · est. 2.700–5.400 kr/md');
+  }
+  const ki = document.getElementById('ma-konkurrent');
+  if(ki) ki.oninput = function(){
+    document.getElementById('ma-konkurrent-call').textContent = this.value || '[ konkurrentnavn indsættes ovenfor ]';
+  };
+  // Verificeret markedsdata (intel)
+  const intelBox = document.getElementById('ma-intel');
+  if(z.intel){
+    const cl = z.intel.calllist;
+    const aList = cl.filter(c=>c.prio==='A');
+    const bList = cl.filter(c=>c.prio==='B');
+    const mailtoFor = (c) => {
+      if(!c.email || c.email==='—') return '';
+      const fn = (c.contact && c.contact!=='—') ? c.contact.split(' ')[0].split('/')[0] : 'der';
+      const subj = encodeURIComponent(z.intel.email.subject);
+      const body = encodeURIComponent(z.intel.email.body.replace(/<br>/g,'\n').replace(/\[fornavn\]/g, fn));
+      return `mailto:${c.email}?subject=${subj}&body=${body}`;
+    };
+    const rowsHtml = (arr) => arr.map(c => `
+      <div style="display:grid;grid-template-columns:1.3fr 1fr auto;gap:8px;align-items:center;padding:8px 12px;background:#fafafa;border-left:3px solid ${c.prio==='A'?'#1B6FFF':'#bbb'};margin-bottom:2px;">
+        <div><div style="font-weight:600;font-size:13px;color:#111;">${c.name}</div><div style="font-size:11px;color:#888;">${c.site!=='—'?'🌐 '+c.site:'&nbsp;'}${c.rank?` · <span style="color:${c.rank.indexOf('~0')>-1||c.rank.indexOf('11+')>-1?'#C93B2A':'#8B6914'};font-weight:600;">Google ${c.rank}</span>`:''}</div></div>
+        <div style="font-size:12px;color:#555;">${c.contact!=='—'?'👤 '+c.contact:'<span style=\'color:#bbb\'>ukendt kontakt</span>'}${c.rating&&c.rating!=='—'?` · <span style="color:#8B6914;font-weight:600;">${c.rating}</span>`:''}${c.email&&c.email!=='—'?`<br><a href="${mailtoFor(c)}" title="Åbn pre-call email forudfyldt" style="font-size:11px;color:#2E7D32;text-decoration:none;word-break:break-all;">✉ ${c.email}</a>`:''}</div>
+        <div style="text-align:right;"><div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#1B6FFF;white-space:nowrap;">${c.phone}</div>${c.email&&c.email!=='—'?`<a href="${mailtoFor(c)}" style="display:inline-block;margin-top:4px;background:#2E7D32;color:#fff;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;text-decoration:none;">✉ Skriv nu</a>`:''}</div>
+      </div>`).join('');
+    intelBox.style.display = 'block';
+    intelBox.innerHTML = `
+      <div style="background:#07090F;padding:14px 16px;">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#C93B2A;margin-bottom:4px;">✓ Verificeret markedsdata · ${z.name} · opkaldsklar</div>
+        <div style="font-size:12px;color:#a8c4ff;margin-bottom:12px;">Kilde: ${z.intel.source}. Bekræft øverste Google-placering live i inkognito før du ringer — ranking skifter.</div>
+        <div style="background:#1a1e2c;border-left:4px solid #C93B2A;padding:10px 14px;margin-bottom:12px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:3px;">Markedsleder — ham du slår i samtalen</div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;">${z.intel.dominator.name}</div>
+            <div style="font-family:'Space Mono',monospace;font-size:13px;color:#888;white-space:nowrap;">${z.intel.dominator.phone}</div>
+          </div>
+          <div style="font-size:11px;color:#888;margin-top:4px;">${z.intel.dominator.note}</div>${z.intel.ctr?`<div style="font-family:'Space Mono',monospace;font-size:10px;color:#C93B2A;margin-top:6px;">📍 Google-rank: ${z.intel.ctr.dominatorRank}</div>`:''}${z.intel.adspend?`<div style="font-family:'Space Mono',monospace;font-size:10px;color:#f0a020;margin-top:4px;line-height:1.5;">💰 ${z.intel.adspend}</div>`:''}
+        </div>
+        ${z.intel.timing?`<div style="background:#102a12;border-left:4px solid #2E7D32;padding:10px 14px;margin-bottom:12px;"><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#4CAF50;margin-bottom:3px;">Marked-timing · brug som hook</div><div style="font-size:12px;color:#cfe8d0;line-height:1.6;">${z.intel.timing}</div></div>`:''}
+        ${z.intel.volume?`<div style="background:#0d1b2e;border-left:4px solid #1B6FFF;padding:10px 14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px;">
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#4a9eff;">Søgevolumen · ${z.intel.volume.verified}</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;">${z.intel.volume.cluster}<span style="font-size:11px;color:#888;font-family:'Space Mono',monospace;"> /md cluster</span></div>
+          </div>
+          ${z.intel.volume.rows.map(r=>`<div style="display:grid;grid-template-columns:1.5fr auto 1.2fr;gap:8px;align-items:center;padding:4px 0;border-top:1px solid #1a2740;font-size:12px;"><div style="color:#cdd9ec;">${r.kw}</div><div style="font-family:'Space Mono',monospace;color:#4a9eff;font-weight:700;white-space:nowrap;">${r.est}</div><div style="font-size:10px;color:#7a8aa0;">${r.note}</div></div>`).join('')}
+          <div style="font-size:10px;color:#6a7894;line-height:1.6;margin-top:8px;border-top:1px solid #1a2740;padding-top:6px;">Metode: ${z.intel.volume.method}</div>
+        </div>`:''}
+        ${z.intel.ctr?`<div style="background:#1a130d;border-left:4px solid #8B6914;padding:10px 14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px;">
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#d4a017;">Klik-andel pr. placering</div>
+            <div style="font-size:11px;color:#d4a017;font-family:'Space Mono',monospace;">${z.intel.ctr.top3}</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">${z.intel.ctr.curve.map(p=>`<div style="background:#2a2113;padding:5px 9px;text-align:center;min-width:54px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#f0c040;line-height:1;">${p[1]}</div><div style="font-family:'Space Mono',monospace;font-size:9px;color:#9a8a5a;">${p[0]}</div></div>`).join('')}</div>
+          <div style="font-size:10px;color:#7a6a4a;line-height:1.6;margin-top:8px;">${z.intel.ctr.note}<br><strong style="color:#C93B2A;">Konsekvens for ${z.name}:</strong> dine A-emner ligger 11+ / kun på Maps → de fanger ~0 % af de ${z.intel.volume.head} head-søgninger. Møllgaard tager dem. Det er din åbning.</div>
+        </div>`:''}
+        ${z.intel.sharpest?`<div style="background:#04140a;border:1.5px solid #2E7D32;padding:10px 14px;margin-bottom:12px;"><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#4CAF50;margin-bottom:6px;">★ Skarpeste emner — bedste operatører, men usynlige på Google</div>${z.intel.sharpest.map(s=>`<div style="margin-bottom:6px;"><span style="font-weight:700;color:#dff5e2;font-size:13px;">${s.name}</span> <span style="color:#f0c040;font-family:'Space Mono',monospace;font-size:12px;">${s.r}</span><div style="font-size:11px;color:#9fc9a8;line-height:1.5;">${s.why}</div></div>`).join('')}<div style="font-size:11px;color:#7ea888;border-top:1px solid #143d1f;padding-top:6px;margin-top:4px;">Pointe: Møllgaard fanger alt med kun <b style="color:#ff8a78;">3,5★</b> — disse har 4,6–5,0★. De fortjener kunderne; de mangler bare at blive fundet.</div></div>`:''}
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#1B6FFF;margin-bottom:6px;">A-liste · ring først (${aList.length}) — navngivet beslutningstager + direkte nr.</div>
+        ${rowsHtml(aList)}
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;margin:10px 0 6px;">B-liste · backup (${bList.length})</div>
+        ${rowsHtml(bList)}
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:#666;margin-top:8px;">Portaler: ~${z.intel.portal} aktive i ${z.postnr.split(',')[0].trim()} · Sælg KUN til én — eksklusiv zone.</div>
+        ${z.intel.calllist.some(c=>c.email&&c.email!=='—')?`<div style="margin-top:8px;"><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#7a8aa0;margin-bottom:4px;">Alle emails — markér &amp; kopiér</div><div style="font-family:'Space Mono',monospace;font-size:11px;color:#a8c4ff;background:#111827;padding:8px 10px;word-break:break-all;line-height:1.7;user-select:all;">${z.intel.calllist.filter(c=>c.email&&c.email!=='—').map(c=>c.email).join(', ')}</div></div>`:''}
+        ${z.intel.callscript?`
+        <div style="background:#04140a;border:1.5px solid #2E7D32;padding:14px 16px;margin-top:12px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#4CAF50;margin-bottom:10px;">★ Horsens-tilpasset opkald · læs op</div>
+          <div style="margin-bottom:10px;"><span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4CAF50;text-transform:uppercase;">Åbning</span><div style="font-size:14px;color:#dff5e2;line-height:1.7;margin-top:3px;">${z.intel.callscript.open}</div></div>
+          <div style="margin-bottom:10px;"><span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4CAF50;text-transform:uppercase;">Krog · Horsens-data</span><div style="font-size:14px;color:#dff5e2;line-height:1.8;margin-top:3px;">${z.intel.callscript.hook}</div><div style="display:inline-block;background:#0a2a14;border:1px solid #2E7D32;color:#7ed99a;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 7px;margin-top:5px;">▸ TI STILLE — lyt</div></div>
+          <div style="margin-bottom:10px;"><span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4CAF50;text-transform:uppercase;">Erkendelse · han siger det selv</span>${z.intel.callscript.ask.map((q,i)=>`<div style="font-size:14px;color:#dff5e2;line-height:1.7;margin-top:5px;">${i+1}. ${q} <span style="color:#5a8a68;font-size:11px;">(lyt)</span></div>`).join('')}</div>
+          <div style="margin-bottom:10px;"><span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4CAF50;text-transform:uppercase;">Løsning</span><div style="font-size:14px;color:#dff5e2;line-height:1.8;margin-top:3px;">${z.intel.callscript.solution}</div></div>
+          <div style="margin-bottom:10px;background:#0a2a14;padding:10px 12px;border-left:3px solid #4CAF50;"><span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#4CAF50;text-transform:uppercase;">Luk</span><div style="font-size:15px;font-weight:600;color:#fff;line-height:1.7;margin-top:3px;">${z.intel.callscript.close}</div><div style="display:inline-block;background:#fff0ee;border:1.5px solid #C93B2A;color:#C93B2A;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 7px;margin-top:6px;">🔴 TI STILLE — den der taler først taber</div></div>
+          <div><span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:#C93B2A;text-transform:uppercase;">Indvendinger — "det forstår jeg godt." altid.</span>${z.intel.callscript.objections.map(o=>`<div style="margin-top:6px;padding:8px 10px;background:#1a0d0a;border-left:3px solid #C93B2A;"><div style="font-size:12px;font-weight:700;color:#ff8a78;">${o[0]}</div><div style="font-size:13px;color:#e8d0cc;line-height:1.6;margin-top:2px;">${o[1]}</div></div>`).join('')}</div>
+        </div>`:''}
+        ${z.intel.email?`
+        <div style="background:#0a0f1e;border:1.5px solid #1B6FFF;padding:14px 16px;margin-top:12px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#4a9eff;margin-bottom:8px;">✉ Pre-call email · send aftenen/morgenen før</div>
+          <div style="background:#111827;padding:10px 12px;font-size:13px;color:#cdd9ec;line-height:1.7;">
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:#7a8aa0;border-bottom:1px solid #243049;padding-bottom:6px;margin-bottom:8px;">Emne: ${z.intel.email.subject}</div>
+            ${z.intel.email.body}
+          </div>
+        </div>`:''}
+        ${z.intel.sms?`
+        <div style="background:#0a0f1e;border:1.5px solid #1B6FFF;padding:14px 16px;margin-top:8px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#4a9eff;margin-bottom:8px;">💬 SMS-opfølgning</div>
+          ${z.intel.sms.map(s=>`<div style="margin-bottom:8px;"><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#7a8aa0;margin-bottom:3px;">${s.lbl}</div><div style="background:#1d3a5f;color:#eaf2ff;font-size:13px;line-height:1.6;padding:9px 12px;border-radius:10px 10px 10px 2px;">${s.txt}</div></div>`).join('')}
+        </div>`:''}
+        ${z.intel.meeting?`
+        <div style="background:#1a130d;border:1.5px solid #8B6914;padding:14px 16px;margin-top:8px;">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#d4a017;margin-bottom:10px;">▶ Mødet · 15–20 min · vis live → luk</div>
+          ${z.intel.meeting.map((m,i)=>`<div style="display:flex;gap:10px;margin-bottom:8px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#d4a017;flex-shrink:0;width:20px;line-height:1.1;">${String.fromCharCode(65+i)}</div><div><div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#9a8a5a;">${m.h}</div><div style="font-size:13px;color:#efe4cf;line-height:1.7;margin-top:1px;">${m.t}</div></div></div>`).join('')}
+        </div>`:''}
+      </div>`;
+  } else {
+    intelBox.style.display = 'none';
+    intelBox.innerHTML = '';
+  }
+
+  // Reset checklists
+  document.querySelectorAll('.ci').forEach(c => c.classList.remove('done'));
+  window.scrollTo(0,0);
+}
+
+function showIndex() {
+  document.getElementById('zoneIndex').style.display = 'block';
+  document.getElementById('zoneDetail').classList.remove('active');
+  sel.value = '';
+  window.scrollTo(0,0);
+}
+
+// Åbn direkte på Zone 17 (Horsens) for partner-visning
+try{ selectZone(17); }catch(e){}
+</script>
+</body>
+</html>
