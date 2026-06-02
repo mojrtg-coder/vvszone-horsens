@@ -867,7 +867,78 @@ const zones = [
        {prio:"B", name:"Deres Blikkenslager A/S", contact:"Torben (aut. VVS)", phone:"75 12 50 11", site:"deresblik.dk", email:"torben@deresblik.dk", rating:"3,5★ (6)"}
      ]
    }},
-  {n:21, name:"Randers", kommune:"Randers Kommune", type:2, fee:4995, pop:"65K", searches:"380–560", leads:"9–16", postnr:"8900, 8920, 8930, 8940", cities:"Randers C, Randers NV, Randers NØ", kw:["VVS Randers","VVS mester Randers","akut VVS Randers","varmepumpe Randers"]},
+  {n:21, name:"Randers", kommune:"Randers Kommune", type:2, fee:4995, pop:"62K", searches:"380–560", leads:"9–16", postnr:"8900, 8920, 8930, 8940, 8960", cities:"Randers C, Randers NV, Randers NØ, Randers SV, Dronningborg, Vorup", kw:["VVS Randers","VVS mester Randers","akut VVS Randers","varmepumpe Randers","fjernvarme Randers","blikkenslager Randers","VVS Dronningborg","VVS 8900"],
+   intel:{
+     dominator:{name:"Rune's VVS ApS", phone:"92 92 20 00", note:"#1 organisk (runesvvs.dk) + døgnvagt 24t · ejer Rune Skougaard Olofsen · rune@runesvvs.dk. Brandet vvs-randers.dk er #2, Randers VVS Aps #3. BEMÆRK: Rune's Trustpilot er kun 3/5 — blandet omdømme. Et bedre firma fortjener de leads."},
+     portal:"4–6 mestre",
+     source:"Google Maps + live SERP + Keyword Planner (verificeret, juni 2026)",
+     timing:"⚡ To åbninger i Randers: (1) \"akut VVS Randers\" har målbar volumen (10–100/md) med høj intent — og ingen fanger den betalt. (2) Varmepumpe-bølgen (+65 % salg 2025). Generel VVS + akut-felt er åbent, og markedslederen Rune's har kun 3/5 i omdømme.",
+     volume:{
+       cluster:"≈150–400", head:"100–1.000", verified:"Keyword Planner · faktisk (juni 2026)",
+       method:"Hentet direkte i Google Ads Keyword Planner (Danmark). \"VVS Randers\" lander 100–1.000/md — realistisk ~150–400 for en by på 62K. Tal vises som Googles intervaller.",
+       rows:[
+         {kw:"VVS Randers", est:"100–1.000", note:"head · Middel konkurrence"},
+         {kw:"akut VVS Randers", est:"10–100", note:"★ høj intent · ingen fanger den betalt"},
+         {kw:"varmepumpe Randers", est:"10–100", note:"↑ stiger 2025"},
+         {kw:"blikkenslager Randers", est:"10–100", note:"sekundær"},
+         {kw:"fjernvarme Randers", est:"10–100", note:"lavere end andre byer"},
+         {kw:"VVS 8900 / Dronningborg / mester / pris", est:"<10", note:"for lav til at måle"}
+       ]
+     },
+     adspend:"Stort set tomt betalt felt på \"VVS Randers\" (bekræftet live juni 2026) — kun grossister (Geberit, VVS-Shoppen) er sponsoreret på Maps; ingen lokal VVS-installatør betaler for annoncer. Generelt + akut-felt er åbent → reel first-mover-mulighed.",
+     sharpest:[
+       {name:"Gas- og Vandmesteren ApS", r:"4,5★ (15)", why:"Ejer Thomas Rønnow (siden 2000), høj rating, akut-profil — men usynlig på generel søgning. tr@gasogvandmesteren.dk · 86 43 54 00."},
+       {name:"VVS Center Bjarne Ørsted", r:"4,1★ (21)", why:"Ejer Bjarne Ørsted, badeværelses-specialist, etableret — lav synlighed. vvscenter@vvscenter.com · 86 43 19 66."},
+       {name:"Byens VVS Randers", r:"5,0★ (1)", why:"Perfekt rating, lokal — næsten usynlig på Google. 70 25 08 86."}
+     ],
+     ctr:{
+       note:"Organisk CTR pr. Google-placering · GrowthSRC 200K-keyword-studie 2025 + Backlinko. AI Overviews (~30 % af søgninger) kan halvere tallene yderligere.",
+       top3:"68,7 % af alle klik går til top 3",
+       curve:[["#1","27 %"],["#2","15 %"],["#3","11 %"],["#4","8 %"],["#5","6 %"],["#6","4,5 %"],["#7–10","2–3,5 %"],["11+","<1 %"]],
+       dominatorRank:"Rune's VVS #1 organisk + 24t · vvs-randers.dk #2 · Randers VVS Aps #3 → æder hovedparten af de 100–1.000 søgninger/md. Men Rune's omdømme er kun 3/5 — et bedre firma kan tage pladsen."
+     },
+     callscript:{
+       open:"Hej, taler jeg med [fornavn]? Det er [dit navn] fra VVSZone. Fanger jeg dig 30 sekunder — så lover jeg det er kort?",
+       hook:"Jeg har kigget på VVS-markedet i Randers. Der er 100–1.000 om måneden der googler \"VVS Randers\", plus folk der søger akut VVS og varmepumpe. Lige nu topper <b>Rune's VVS</b> Google — men de har kun 3 ud af 5 i omdømme, og ingen i byen betaler for annoncer endnu. Jeres firma dukker reelt ikke op på side 1. Arbejder I aktivt med Google i dag?",
+       ask:[
+         "Hvor kommer jeres kunder typisk fra i dag — anbefalinger, eller også online?",
+         "De store jobs — varmepumpe, badeværelse, akut udkald — hvis nogen søger det i Randers i morgen, hvem får dem så?",
+         "I de stille perioder, januar–februar — kunne I bruge et jævnt flow af lokale henvendelser?"
+       ],
+       solution:"Det er præcis det jeg ringer om. VVSZone giver ÉT VVS-firma i Randers alle de leads Google og vores side genererer — <b>eksklusivt, ingen deling.</b> Når naboen googler VVS, ryger henvendelsen direkte på din telefon inden 2 minutter. Pladsen i Randers er ledig nu — den går til én. Det kan være jer.",
+       close:"Må jeg vise dig det live på 15 minutter? Passer <i>onsdag kl. 10</i> — eller er <i>torsdag kl. 14</i> nemmere?",
+       objections:[
+         ["\"Vi har nok at lave\"","\"Fedt — det har I i juni. Hvad med januar? Det her sikrer flow året rundt, første måned gratis. Passer onsdag?\""],
+         ["\"Vi bruger ikke Google\"","\"Det behøver I heller ikke — jeres kunder gør. 100–1.000 søger 'VVS Randers' hver måned, og ingen betaler for at fange dem. Skal vi vende det på 15 min?\""],
+         ["\"Hvad koster det?\"","\"4.995/md, første måned gratis, ingen binding. Mødet koster ingenting. Passer torsdag kl. 14?\""],
+         ["\"Send noget på mail\"","\"Nemmere live — 15 min, så ser du din egen Randers-side. Onsdag eller torsdag?\""],
+         ["\"Vi har allerede et bureau\"","\"Hvor mange eksklusive Randers-leads giver de jer om måneden? Det her er kun din by, kun jer. Lad mig vise forskellen.\""]
+       ]
+     },
+     email:{
+       subject:"Randers — hurtigt spørgsmål om jeres VVS-leads",
+       body:"Hej [fornavn],<br><br>Jeg kiggede på VVS-markedet i Randers. Lige nu topper Rune's VVS Google — men de har kun 3/5 i omdømme, og ingen i byen betaler for annoncer endnu, så de 100–1.000 månedlige 'VVS Randers'-søgninger er i spil.<br><br>Jeres firma dukker reelt ikke op på side 1.<br><br>Jeg ringer i morgen tidlig med en konkret idé — tager 2 minutter.<br><br>[dit navn] · VVSZone · [telefon]"
+     },
+     sms:[
+       {lbl:"Ej svar på opkald", txt:"Hej [fornavn], prøvede at fange dig — [dit navn] fra VVSZone. Kort idé om de VVS-leads i Randers som ingen fanger betalt endnu (markedslederen har kun 3/5). Ringer igen kl. [tid] 👍"},
+       {lbl:"Bekræft møde", txt:"Tak [fornavn]! Bekræfter vores 15 min [dag] kl. [tid]. Jeg viser dig live hvor mange Randers-søgninger der lige nu ryger til andre. Vi ses 👍 — [dit navn]"}
+     ],
+     meeting:[
+       {h:"Åbning", t:"\"[Fornavn] — fedt du tog mødet. 20 minutter, så kan du beslutte. Lyder det fair?\""},
+       {h:"Vis problemet live", t:"[Søg 'VVS Randers' inkognito foran ham] \"Hvem ser du øverst?\" → Rune's VVS. \"De fanger hovedparten af klikkene — men kun 3/5 i omdømme. Og ingen betaler for annoncer her. Den plads er ledig for et bedre firma.\""},
+       {h:"Akut/varmepumpe-vinklen", t:"\"Folk søger akut VVS og varmepumpe i Randers hver måned — høj intent. Ingen fanger det betalt. Det er de hurtige, dyre jobs. Hvem får dem? Ikke jer endnu.\""},
+       {h:"Vis zonen", t:"[Åbn vvszone.dk/vvs-randers] \"Det her er din side. Alle der lander her ringer KUN til jer. Ingen andre. Nogensinde.\""},
+       {h:"ROI · hans egne tal", t:"\"Hvad er et gennemsnitsjob for jer?\" [vent] → 9–16 leads × 30 % close = 3–5 jobs/md. Fee 4.995 → breakeven på ÉT job."},
+       {h:"Close", t:"\"2 uger gratis. Ingen binding. 4.995/md bagefter. Vi kan have dig live i morgen. Vil du starte?\"  🔴 TI STILLE."}
+     ],
+     calllist:[
+       {prio:"A", name:"Gas- og Vandmesteren ApS", contact:"Thomas Rønnow", phone:"86 43 54 00", site:"gasogvandmesteren.dk", email:"tr@gasogvandmesteren.dk", rating:"4,5★ (15)"},
+       {prio:"A", name:"VVS Center Bjarne Ørsted", contact:"Bjarne Ørsted", phone:"86 43 19 66", site:"vvscenter.com", email:"vvscenter@vvscenter.com", rating:"4,1★ (21)"},
+       {prio:"A", name:"Byens VVS Randers", contact:"—", phone:"70 25 08 86", site:"byensvvsranders.dk", rating:"5,0★ (1)"},
+       {prio:"A", name:"Helsted VVS ApS", contact:"—", phone:"86 43 51 76", site:"helstedvvs.dk", email:"helstedvvs@helstedvvs.dk", rating:"3,8★ (32)"},
+       {prio:"B", name:"Brdr. Randers El & VVS ApS", contact:"—", phone:"87 10 12 77", site:"brdr-randers.dk", rating:"3,2★ (19)"}
+     ]
+   }},
   {n:22, name:"Silkeborg", kommune:"Silkeborg Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"8600, 8620, 8641, 8643", cities:"Silkeborg, Kjellerup, Gjern", kw:["VVS Silkeborg","VVS mester Silkeborg","akut VVS Silkeborg","varmepumpe Silkeborg"]},
   {n:23, name:"Herning", kommune:"Herning Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"7400, 7430, 7441, 7442", cities:"Herning, Ikast, Hammerum", kw:["VVS Herning","VVS mester Herning","akut VVS Herning","varmepumpe Herning"]},
   {n:24, name:"Viborg", kommune:"Viborg Kommune", type:2, fee:4995, pop:"40K", searches:"240–380", leads:"7–13", postnr:"8800, 8830, 8840, 8850, 8860, 8870", cities:"Viborg, Bjerringbro, Karup", kw:["VVS Viborg","VVS mester Viborg","akut VVS Viborg","varmepumpe Viborg"]},
