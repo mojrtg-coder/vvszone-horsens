@@ -939,7 +939,79 @@ const zones = [
        {prio:"B", name:"Brdr. Randers El & VVS ApS", contact:"—", phone:"87 10 12 77", site:"brdr-randers.dk", rating:"3,2★ (19)"}
      ]
    }},
-  {n:22, name:"Silkeborg", kommune:"Silkeborg Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"8600, 8620, 8641, 8643", cities:"Silkeborg, Kjellerup, Gjern", kw:["VVS Silkeborg","VVS mester Silkeborg","akut VVS Silkeborg","varmepumpe Silkeborg"]},
+  {n:22, name:"Silkeborg", kommune:"Silkeborg Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"8600, 8620, 8641, 8643", cities:"Silkeborg, Virklund, Funder, Gjern, Kjellerup", kw:["VVS Silkeborg","VVS mester Silkeborg","akut VVS Silkeborg","varmepumpe Silkeborg","fjernvarme Silkeborg","blikkenslager Silkeborg","VVS Virklund","VVS Funder","VVS 8600"],
+   intel:{
+     dominator:{name:"Henning Mortensen A/S", phone:"86 82 44 44", note:"#1 organisk (henning-mortensen.dk) · kombineret el + VVS. BEMÆRK: kun 3,3★/33 — svagt omdømme. VVS-Fagmanden (4,6★) og Kjellerup VVS (4,4★) topper Maps. Et bedre firma kan tage #1-pladsen."},
+     portal:"4–6 mestre",
+     source:"Google Maps + live SERP + Keyword Planner (verificeret, juni 2026)",
+     timing:"⚡ Silkeborg-området skifter fra gas/olie til varmepumpe &amp; fjernvarme. Varmepumpesalg +65 % nationalt 2025. Markedslederen (Henning Mortensen, #1 organisk) har kun 3,3★, og INGEN betaler for annoncer — dobbelt åbning for et stærkt firma.",
+     volume:{
+       cluster:"≈150–400", head:"100–1.000", verified:"Keyword Planner · faktisk (juni 2026)",
+       method:"Hentet direkte i Google Ads Keyword Planner (Danmark). \"VVS Silkeborg\" lander 100–1.000/md — realistisk ~150–400 for en by på 50K. Tal vises som Googles intervaller.",
+       rows:[
+         {kw:"VVS Silkeborg", est:"100–1.000", note:"head · Middel konkurrence"},
+         {kw:"fjernvarme Silkeborg", est:"100–1.000", note:"værket + konvertering"},
+         {kw:"varmepumpe Silkeborg", est:"10–100", note:"↑ stiger 2025"},
+         {kw:"blikkenslager Silkeborg", est:"10–100", note:"sekundær"},
+         {kw:"VVS Funder", est:"10–100", note:"forstad"},
+         {kw:"akut/mester/pris/Virklund", est:"<10", note:"for lav til at måle"}
+       ]
+     },
+     adspend:"Stort set tomt betalt felt på \"VVS Silkeborg\" (bekræftet live juni 2026) — ingen lokal VVS-installatør betaler for annoncer (kun en svag annonce-widget). Generelt felt er åbent → reel first-mover-mulighed, og markedslederen har kun 3,3★.",
+     sharpest:[
+       {name:"Vangvedvængets VVS", r:"4,5★ (14)", why:"Ejer Leif Vingborg Kristoffersen (siden 1994), høj rating — men lav synlighed. leif@vangved.dk · 86 85 32 35."},
+       {name:"Kims Blik & VVS", r:"4,3★ (11)", why:"Ejer Kim Dyhr Jochumsen, stabil håndværker, usynlig på Google. kims-blikogvvs@mail.dk · 40 27 56 53."},
+       {name:"KLEIN VVS", r:"5,0★ (2)", why:"Ejer Martin Klein Hansen, perfekt rating, ny og usynlig. 70 55 55 44."}
+     ],
+     ctr:{
+       note:"Organisk CTR pr. Google-placering · GrowthSRC 200K-keyword-studie 2025 + Backlinko. AI Overviews (~30 % af søgninger) kan halvere tallene yderligere.",
+       top3:"68,7 % af alle klik går til top 3",
+       curve:[["#1","27 %"],["#2","15 %"],["#3","11 %"],["#4","8 %"],["#5","6 %"],["#6","4,5 %"],["#7–10","2–3,5 %"],["11+","<1 %"]],
+       dominatorRank:"Henning Mortensen #1 organisk — men kun 3,3★/33. VVS-Fagmanden (4,6★) + Kjellerup VVS (4,4★) topper Maps. Top-placering æder hovedparten af de 100–1.000 søgninger/md; svagt omdømme = åbning."
+     },
+     callscript:{
+       open:"Hej, taler jeg med [fornavn]? Det er [dit navn] fra VVSZone. Fanger jeg dig 30 sekunder — så lover jeg det er kort?",
+       hook:"Jeg har kigget på VVS-markedet i Silkeborg. Der er 100–1.000 om måneden der googler \"VVS Silkeborg\", plus folk der skal skifte til varmepumpe og fjernvarme. Lige nu topper <b>Henning Mortensen</b> Google — men de har kun 3,3 i omdømme, og ingen i byen betaler for annoncer endnu. Jeres firma dukker reelt ikke op på side 1. Arbejder I aktivt med Google i dag?",
+       ask:[
+         "Hvor kommer jeres kunder typisk fra i dag — anbefalinger, eller også online?",
+         "De store jobs — varmepumpe, badeværelse, fjernvarme — hvis nogen søger det i Silkeborg i morgen, hvem får dem så?",
+         "I de stille perioder, januar–februar — kunne I bruge et jævnt flow af lokale henvendelser?"
+       ],
+       solution:"Det er præcis det jeg ringer om. VVSZone giver ÉT VVS-firma i Silkeborg alle de leads Google og vores side genererer — <b>eksklusivt, ingen deling.</b> Når naboen googler VVS, ryger henvendelsen direkte på din telefon inden 2 minutter. Pladsen i Silkeborg er ledig nu — den går til én. Det kan være jer.",
+       close:"Må jeg vise dig det live på 15 minutter? Passer <i>onsdag kl. 10</i> — eller er <i>torsdag kl. 14</i> nemmere?",
+       objections:[
+         ["\"Vi har nok at lave\"","\"Fedt — det har I i juni. Hvad med januar? Det her sikrer flow året rundt, første måned gratis. Passer onsdag?\""],
+         ["\"Vi bruger ikke Google\"","\"Det behøver I heller ikke — jeres kunder gør. 100–1.000 søger 'VVS Silkeborg' hver måned, og ingen betaler for at fange dem. Skal vi vende det på 15 min?\""],
+         ["\"Hvad koster det?\"","\"4.995/md, første måned gratis, ingen binding. Mødet koster ingenting. Passer torsdag kl. 14?\""],
+         ["\"Send noget på mail\"","\"Nemmere live — 15 min, så ser du din egen Silkeborg-side. Onsdag eller torsdag?\""],
+         ["\"Vi har allerede et bureau\"","\"Hvor mange eksklusive Silkeborg-leads giver de jer om måneden? Det her er kun din by, kun jer. Lad mig vise forskellen.\""]
+       ]
+     },
+     email:{
+       subject:"Silkeborg — hurtigt spørgsmål om jeres VVS-leads",
+       body:"Hej [fornavn],<br><br>Jeg kiggede på VVS-markedet i Silkeborg. Lige nu topper Henning Mortensen Google — men de har kun 3,3/5 i omdømme, og ingen i byen betaler for annoncer endnu, så de 100–1.000 månedlige 'VVS Silkeborg'-søgninger er i spil.<br><br>Jeres firma dukker reelt ikke op på side 1.<br><br>Jeg ringer i morgen tidlig med en konkret idé — tager 2 minutter.<br><br>[dit navn] · VVSZone · [telefon]"
+     },
+     sms:[
+       {lbl:"Ej svar på opkald", txt:"Hej [fornavn], prøvede at fange dig — [dit navn] fra VVSZone. Kort idé om de VVS-leads i Silkeborg som ingen fanger betalt endnu (markedslederen har kun 3,3★). Ringer igen kl. [tid] 👍"},
+       {lbl:"Bekræft møde", txt:"Tak [fornavn]! Bekræfter vores 15 min [dag] kl. [tid]. Jeg viser dig live hvor mange Silkeborg-søgninger der lige nu ryger til andre. Vi ses 👍 — [dit navn]"}
+     ],
+     meeting:[
+       {h:"Åbning", t:"\"[Fornavn] — fedt du tog mødet. 20 minutter, så kan du beslutte. Lyder det fair?\""},
+       {h:"Vis problemet live", t:"[Søg 'VVS Silkeborg' inkognito foran ham] \"Hvem ser du øverst?\" → Henning Mortensen. \"De fanger hovedparten af klikkene — men kun 3,3 i omdømme. Og ingen betaler for annoncer her. Den plads er ledig for et bedre firma.\""},
+       {h:"Varmepumpe/fjernvarme-vinklen", t:"\"Silkeborg-området skifter til varmepumpe og fjernvarme lige nu — de største jobs i årevis. Hvem fanger dem på Google? Ikke jer endnu.\""},
+       {h:"Vis zonen", t:"[Åbn vvszone.dk/vvs-silkeborg] \"Det her er din side. Alle der lander her ringer KUN til jer. Ingen andre. Nogensinde.\""},
+       {h:"ROI · hans egne tal", t:"\"Hvad er et gennemsnitsjob for jer?\" [vent] → 8–14 leads × 30 % close = 2–4 jobs/md. Fee 4.995 → breakeven på ÉT job."},
+       {h:"Close", t:"\"2 uger gratis. Ingen binding. 4.995/md bagefter. Vi kan have dig live i morgen. Vil du starte?\"  🔴 TI STILLE."}
+     ],
+     calllist:[
+       {prio:"A", name:"Vangvedvængets VVS", contact:"Leif Vingborg Kristoffersen", phone:"86 85 32 35", site:"vangved.dk", email:"leif@vangved.dk", rating:"4,5★ (14)"},
+       {prio:"A", name:"VVS-Fagmanden Ole K. Hansen A/S", contact:"—", phone:"86 82 95 46", site:"vvsfagmanden.dk", email:"info@vvsfagmanden.dk", rating:"4,6★ (15)"},
+       {prio:"A", name:"Kims Blik & VVS", contact:"Kim Dyhr Jochumsen", phone:"40 27 56 53", site:"—", email:"kims-blikogvvs@mail.dk", rating:"4,3★ (11)"},
+       {prio:"A", name:"KLEIN VVS", contact:"Martin Klein Hansen", phone:"70 55 55 44", site:"kleinvvs.dk", rating:"5,0★ (2)"},
+       {prio:"A", name:"Lemming VVS ApS", contact:"Ib Riis Pedersen", phone:"86 80 43 54", site:"lemming-vvs.dk", email:"info@lemming-vvs.dk", rating:"4,1★ (11)"},
+       {prio:"B", name:"Varme og Energi VVS ApS (VVS Comfort)", contact:"—", phone:"70 60 53 53", site:"varme-energi.dk", rating:"5,0★ (5)"}
+     ]
+   }},
   {n:23, name:"Herning", kommune:"Herning Kommune", type:2, fee:4995, pop:"50K", searches:"300–450", leads:"8–14", postnr:"7400, 7430, 7441, 7442", cities:"Herning, Ikast, Hammerum", kw:["VVS Herning","VVS mester Herning","akut VVS Herning","varmepumpe Herning"]},
   {n:24, name:"Viborg", kommune:"Viborg Kommune", type:2, fee:4995, pop:"40K", searches:"240–380", leads:"7–13", postnr:"8800, 8830, 8840, 8850, 8860, 8870", cities:"Viborg, Bjerringbro, Karup", kw:["VVS Viborg","VVS mester Viborg","akut VVS Viborg","varmepumpe Viborg"]},
   {n:25, name:"Fredericia", kommune:"Fredericia Kommune", type:2, fee:4995, pop:"40K", searches:"240–360", leads:"7–12", postnr:"7000", cities:"Fredericia", kw:["VVS Fredericia","VVS mester Fredericia","akut VVS Fredericia","varmepumpe Fredericia"]},
